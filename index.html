@@ -294,8 +294,20 @@
   </div>
 
   <script>
-    // Lista fixa de notícias (sem depender de nenhum arquivo externo nem do robô)
-    const NOTICIAS = [
+    // Base de segurança para exibição imediata (inclusive caso aberto localmente via file://)
+    const NOTICIAS_BASE = [
+      {
+        "data": "25/07/2026",
+        "veiculo": "ge",
+        "titulo": "Vasco realiza mudança interna, e presidente da Assembleia Geral assume reforma de São Januário",
+        "link": "https://ge.globo.com/futebol/times/vasco/noticia/2026/07/25/vasco-reforma-sao-januario.ghtml"
+      },
+      {
+        "data": "15/05/2026",
+        "veiculo": "Terra",
+        "titulo": "Vasco segue no aguardo por reformas em São Januário e prazo aumenta",
+        "link": "https://www.terra.com.br/esportes/vasco/"
+      },
       {
         "data": "15/05/2026",
         "veiculo": "Lance!",
@@ -309,22 +321,10 @@
         "link": "https://www.lance.com.br/vasco/sao-januario-completa-99-anos-mas-reforma-segue-travada-a-espera-da-venda-do-potencial-construtivo.html"
       },
       {
-        "data": "12/01/2026",
-        "veiculo": "NSC Total / ge",
-        "titulo": "O que falta para o Vasco iniciar a demolição e reforma do estádio São Januário",
-        "link": "https://www.nsctotal.com.br/esportes/o-que-falta-para-o-vasco-iniciar-a-demolicao-e-reforma-do-estadio-sao-januario"
-      },
-      {
-        "data": "03/10/2025",
-        "veiculo": "Folha de Pernambuco / Estadão",
-        "titulo": "Vasco e prefeitura do Rio assinam termo do potencial construtivo para modernizar São Januário",
-        "link": "https://www.folhape.com.br/esportes/vasco-e-prefeitura-do-rio-assinam-termo/442190/"
-      },
-      {
-        "data": "03/07/2024",
-        "veiculo": "Prefeitura do Rio",
-        "titulo": "Eduardo Paes sanciona lei do potencial construtivo para a reforma e ampliação de São Januário",
-        "link": "https://prefeitura.rio/"
+        "data": "21/03/2026",
+        "veiculo": "O GLOBO",
+        "titulo": "Novo prefeito do Rio, Eduardo Cavaliere promete avançar com reforma de São Januário",
+        "link": "https://oglobo.globo.com/rio/"
       }
     ];
 
@@ -343,16 +343,16 @@
         day: '2-digit'
       }).formatToParts(agora);
 
-      const ano = parseInt(partes.find(p => p.type === 'year').value);
-      const mes = parseInt(partes.find(p => p.type === 'month').value) - 1;
-      const dia = parseInt(partes.find(p => p.type === 'day').value);
+      const ano = parseInt(partes.find(p => p.type === 'year').value, 10);
+      const mes = parseInt(partes.find(p => p.type === 'month').value, 10) - 1;
+      const dia = parseInt(partes.find(p => p.type === 'day').value, 10);
 
       return new Date(ano, mes, dia);
     }
 
     function calcularDias(dataInicioISO) {
       const p = dataInicioISO.split('-');
-      const d1 = new Date(parseInt(p[0]), parseInt(p[1]) - 1, parseInt(p[2]));
+      const d1 = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
       const hoje = getHojeBrasilia();
       const diff = hoje - d1;
       return Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
@@ -362,43 +362,79 @@
       if (!str) return null;
       const partes = str.trim().split('/');
       if (partes.length !== 3) return null;
-      return new Date(parseInt(partes[2]), parseInt(partes[1]) - 1, parseInt(partes[0]));
+      const dia = parseInt(partes[0], 10);
+      const mes = parseInt(partes[1], 10) - 1;
+      const ano = parseInt(partes[2], 10);
+      return new Date(ano, mes, dia);
     }
 
     // Calcula contadores históricos imediatamente
     document.getElementById('dias-projeto').innerHTML = formatarContador(calcularDias('2020-08-21'));
     document.getElementById('dias-potencial').innerHTML = formatarContador(calcularDias('2024-07-03'));
 
-    // Renderiza notícias e contador principal
-    const feed = document.getElementById('feed-noticias');
-    const badgeTotal = document.getElementById('total-noticias');
+    function renderizar(noticias) {
+      const feed = document.getElementById('feed-noticias');
+      const badgeTotal = document.getElementById('total-noticias');
 
-    NOTICIAS.sort((a, b) => {
-      const dA = parseDataBR(a.data) || new Date(0);
-      const dB = parseDataBR(b.data) || new Date(0);
-      return dB - dA;
-    });
+      if (!Array.isArray(noticias) || noticias.length === 0) {
+        document.getElementById('dias-sem-noticia').innerHTML = formatarContador(0);
+        badgeTotal.textContent = '0 notícias';
+        feed.innerHTML = '<div class="item-noticia">Nenhuma notícia encontrada.</div>';
+        return;
+      }
 
-    badgeTotal.textContent = `${NOTICIAS.length} notícias`;
+      // Ordena rigorosamente da mais recente para a mais antiga
+      noticias.sort((a, b) => {
+        const dA = parseDataBR(a.data) || new Date(0);
+        const dB = parseDataBR(b.data) || new Date(0);
+        return dB - dA;
+      });
 
-    const dUltima = parseDataBR(NOTICIAS[0].data);
-    if (dUltima) {
-      const hoje = getHojeBrasilia();
-      const diffDias = Math.max(0, Math.floor((hoje - dUltima) / (1000 * 60 * 60 * 24)));
-      document.getElementById('dias-sem-noticia').innerHTML = formatarContador(diffDias);
-    } else {
-      document.getElementById('dias-sem-noticia').innerHTML = formatarContador(0);
+      badgeTotal.textContent = `${noticias.length} notícia${noticias.length > 1 ? 's' : ''}`;
+
+      // Calcula dias desde a última notícia (índice 0, topo da lista)
+      const dUltima = parseDataBR(noticias[0].data);
+      if (dUltima) {
+        const hoje = getHojeBrasilia();
+        const diffDias = Math.max(0, Math.floor((hoje - dUltima) / (1000 * 60 * 60 * 24)));
+        document.getElementById('dias-sem-noticia').innerHTML = formatarContador(diffDias);
+      } else {
+        document.getElementById('dias-sem-noticia').innerHTML = formatarContador(0);
+      }
+
+      // Renderiza os artigos
+      feed.innerHTML = noticias.map(n => {
+        const veiculo = n.veiculo || 'Imprensa';
+        return `
+          <article class="item-noticia">
+            <span class="badge-data">[${n.data}]</span>
+            <span class="badge-veiculo">[${veiculo}]</span>
+            <a href="${n.link}" target="_blank" rel="noopener noreferrer" class="link-noticia">
+              ${n.titulo}
+            </a>
+          </article>
+        `;
+      }).join('');
     }
 
-    feed.innerHTML = NOTICIAS.map(n => `
-      <article class="item-noticia">
-        <span class="badge-data">[${n.data}]</span>
-        <span class="badge-veiculo">[${n.veiculo}]</span>
-        <a href="${n.link}" target="_blank" rel="noopener noreferrer" class="link-noticia">
-          ${n.titulo}
-        </a>
-      </article>
-    `).join('');
+    // 1. Renderiza a base de imediato para não haver atraso visual
+    renderizar(NOTICIAS_BASE);
+
+    // 2. Busca o noticias.json atualizado gerado pelo bot (com cache buster)
+    fetch('./noticias.json?v=' + Date.now())
+      .then(res => {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(dadosAtualizados => {
+        if (Array.isArray(dadosAtualizados) && dadosAtualizados.length > 0) {
+          renderizar(dadosAtualizados);
+        }
+      })
+      .catch(err => {
+        // Se estiver rodando como arquivo local (file://) ou offline, mantém a base renderizada
+        console.info('Utilizando dados locais ou base (' + err.message + ')');
+      });
   </script>
 </body>
 </html>

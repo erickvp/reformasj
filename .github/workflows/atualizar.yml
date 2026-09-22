@@ -2,7 +2,8 @@ name: Atualizar Noticias Diarias
 
 on:
   schedule:
-    - cron: '0 14,21 * * *'
+    # Executa duas vezes por dia: 12:00 UTC (09:00 Brasília) e 21:00 UTC (18:00 Brasília)
+    - cron: '0 12,21 * * *'
   workflow_dispatch:
 
 permissions:
@@ -22,8 +23,8 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Instalar feedparser
-        run: pip install feedparser
+      - name: Instalar dependencias
+        run: pip install feedparser requests
 
       - name: Executar script coletor
         run: python atualizar_noticias.py
@@ -37,5 +38,5 @@ jobs:
             git commit -m "Auto: noticias atualizadas [skip ci]"
             git push
           else
-            echo "Nenhuma novidade hoje."
+            echo "Nenhuma novidade encontrada hoje."
           fi
