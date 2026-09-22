@@ -1,4 +1,339 @@
-// Carrega o JSON de notícias
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadê a reforma de São Januário?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --card-bg: #12161c;
+      --card-border: #1e242d;
+      --vasco-red: #d91c1c;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --card-hover: #171d25;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 780px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Silhueta São Januário */
+    .silhouette {
+      width: 280px;
+      height: 80px;
+      margin-bottom: 8px;
+      opacity: 0.9;
+    }
+
+    /* Título com Tipografia Cinzel */
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-align: center;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    h1 .destaque {
+      color: var(--vasco-red);
+    }
+
+    .subtitulo {
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 34px;
+      text-align: center;
+    }
+
+    /* Cards */
+    .card-principal {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid #3b1116;
+      box-shadow: 0 0 25px rgba(217, 28, 28, 0.08);
+      border-radius: 14px;
+      padding: 32px 20px;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .grid-secundario {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+      margin-bottom: 28px;
+    }
+
+    @media (max-width: 600px) {
+      .grid-secundario { grid-template-columns: 1fr; }
+      h1 { font-size: 1.6rem; }
+    }
+
+    .card-secundario {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px 16px;
+      text-align: center;
+    }
+
+    .label-contador {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .valor-contador {
+      font-family: 'Cinzel', serif;
+      font-size: 3.2rem;
+      font-weight: 900;
+      line-height: 1;
+      margin: 8px 0;
+    }
+
+    .card-principal .valor-contador {
+      color: var(--vasco-red);
+      font-size: 4rem;
+      text-shadow: 0 0 20px rgba(217, 28, 28, 0.25);
+    }
+
+    .card-secundario .valor-contador {
+      color: #ffffff;
+      font-size: 2.6rem;
+    }
+
+    .unidade-dias {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-left: 4px;
+    }
+
+    .card-secundario .unidade-dias {
+      font-size: 1.1rem;
+      color: #e2e8f0;
+    }
+
+    .descricao-contador {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .descricao-contador strong {
+      color: #f1f5f9;
+    }
+
+    /* Seção de Notícias */
+    .secao-noticias {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 24px 20px;
+    }
+
+    .cabecalho-noticias {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 12px;
+    }
+
+    .titulo-noticias {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cruz {
+      color: var(--vasco-red);
+      font-weight: bold;
+    }
+
+    .contagem-badge {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .lista-noticias {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .item-noticia {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #0f1318;
+      border: 1px solid #1a2029;
+      border-left: 3px solid var(--vasco-red);
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      text-align: left;
+      flex-wrap: wrap;
+    }
+
+    .badge-data {
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      white-space: nowrap;
+    }
+
+    .badge-veiculo {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--vasco-red);
+      background: rgba(217, 28, 28, 0.1);
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .link-noticia {
+      color: #e2e8f0;
+      text-decoration: none;
+      flex: 1;
+      min-width: 200px;
+      line-height: 1.35;
+    }
+
+    .link-noticia:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Silhueta Vetorial Neomanuelina de São Januário -->
+    <svg class="silhouette" viewBox="0 0 500 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 250 14 V 28" stroke="#d91c1c" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M 245 20 H 255" stroke="#d91c1c" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M 50 135 H 450" stroke="#71717a" stroke-width="2" stroke-linecap="round"/>
+      <path d="M 60 135 V 95 H 125 V 82 C 145 82 155 70 170 70 C 185 70 195 82 215 82 V 72 C 225 72 232 50 250 28 C 268 50 275 72 285 72 V 82 C 305 82 315 70 330 70 C 345 70 355 82 375 82 V 95 H 440 V 135" stroke="#a1a1aa" stroke-width="2.5" stroke-linejoin="round" fill="none"/>
+      <!-- Pináculos e detalhes laterais -->
+      <path d="M 65 95 V 72 M 120 82 V 65 M 380 82 V 65 M 435 95 V 72" stroke="#a1a1aa" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="65" cy="70" r="3" fill="#a1a1aa"/>
+      <circle cx="120" cy="63" r="3" fill="#a1a1aa"/>
+      <circle cx="380" cy="63" r="3" fill="#a1a1aa"/>
+      <circle cx="435" cy="70" r="3" fill="#a1a1aa"/>
+      <path d="M 215 92 H 285" stroke="#71717a" stroke-width="1.5"/>
+    </svg>
+
+    <h1>Cadê a reforma de <span class="destaque">São Januário</span>?</h1>
+    <div class="subtitulo">Monitor de notícias e contadores da colina histórica</div>
+
+    <!-- Contador Principal -->
+    <div class="card-principal">
+      <div class="label-contador">Estamos há</div>
+      <div id="dias-sem-noticia" class="valor-contador">...</div>
+      <div class="descricao-contador">sem notícias sobre a reforma de São Januário.</div>
+    </div>
+
+    <!-- Contadores Históricos -->
+    <div class="grid-secundario">
+      <div class="card-secundario">
+        <div class="label-contador">Já se passaram</div>
+        <div id="dias-projeto" class="valor-contador">...</div>
+        <div class="descricao-contador">desde a <strong>apresentação do projeto</strong> em 21 de agosto de 2020.</div>
+      </div>
+      <div class="card-secundario">
+        <div class="label-contador">Já se passaram</div>
+        <div id="dias-potencial" class="valor-contador">...</div>
+        <div class="descricao-contador">desde a <strong>sanção da venda do potencial construtivo</strong> em 3 de julho de 2024.</div>
+      </div>
+    </div>
+
+    <!-- Lista de Notícias -->
+    <div class="secao-noticias">
+      <div class="cabecalho-noticias">
+        <div class="titulo-noticias">
+          <span class="cruz">✠</span> Últimas Notícias
+        </div>
+        <div id="total-noticias" class="contagem-badge">Carregando...</div>
+      </div>
+      <div id="feed-noticias" class="lista-noticias">
+        <div class="item-noticia" style="justify-content: center; color: var(--text-muted);">
+          Buscando notícias cadastradas...
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function formatarContador(totalDias) {
+      if (isNaN(totalDias) || totalDias === null) return `0 <span class="unidade-dias">dias</span>`;
+      const sufixo = totalDias === 1 ? 'dia' : 'dias';
+      return `${totalDias} <span class="unidade-dias">${sufixo}</span>`;
+    }
+
+    function calcularDias(dataInicioISO) {
+      const p = dataInicioISO.split('-');
+      const d1 = new Date(parseInt(p[0]), parseInt(p[1]) - 1, parseInt(p[2]));
+      const hoje = new Date();
+      hoje.setHours(0, 0, 0, 0);
+      d1.setHours(0, 0, 0, 0);
+      const diff = hoje - d1;
+      return Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
+    }
+
+    // Calcula os contadores históricos imediatamente
+    document.getElementById('dias-projeto').innerHTML = formatarContador(calcularDias('2020-08-21'));
+    document.getElementById('dias-potencial').innerHTML = formatarContador(calcularDias('2024-07-03'));
+
+    function parseDataBR(str) {
+      if (!str) return null;
+      const partes = str.trim().split('/');
+      if (partes.length !== 3) return null;
+      return new Date(parseInt(partes[2]), parseInt(partes[1]) - 1, parseInt(partes[0]));
+    }
+
+    // Carrega o JSON de notícias
     fetch('noticias.json?v=' + new Date().getTime())
       .then(res => {
         if (!res.ok) throw new Error('Arquivo noticias.json não encontrado');
@@ -58,3 +393,6 @@
           </div>
         `;
       });
+  </script>
+</body>
+</html>
