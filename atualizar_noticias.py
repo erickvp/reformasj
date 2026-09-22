@@ -1,21 +1,19 @@
 import os
 import json
 import feedparser
-import urllib.parse  # <-- Nova biblioteca adicionada para corrigir a URL
+import urllib.parse
 from datetime import datetime, timezone, timedelta
 
 ARQUIVO_JSON = "noticias.json"
 
-# Busca no RSS do Google News filtrado pelas últimas 48h
-termo_busca = "reforma são januário"
-# Converte espaços e acentos para formato seguro de link (ex: espaço vira %20)
-termo_codificado = urllib.parse.quote(termo_busca) 
-
-rss_url = f"https://news.google.com/rss/search?q={termo_codificado}+when:48h&hl=pt-BR&gl=BR&ceid=BR:pt-419"
+# Busca matérias recentes sobre a reforma de São Januário no Google News Brasil
+termo_busca = '"reforma" "são januário"'
+termo_codificado = urllib.parse.quote(termo_busca)
+rss_url = f"https://news.google.com/rss/search?q={termo_codificado}&hl=pt-BR&gl=BR&ceid=BR:pt-419"
 
 feed = feedparser.parse(rss_url)
 
-# Carrega histórico existente
+# Carrega notícias existentes
 if os.path.exists(ARQUIVO_JSON):
     with open(ARQUIVO_JSON, "r", encoding="utf-8") as f:
         try:
@@ -25,45 +23,52 @@ if os.path.exists(ARQUIVO_JSON):
 else:
     noticias = []
 
-links_existentes = {item.get("link") for item in noticias}
 titulos_existentes = {item.get("titulo", "").strip().lower() for item in noticias}
+links_existentes = {item.get("link") for item in noticias}
 
-novas_adicionadas = 0
-hoje_str = datetime.now(timezone(timedelta(hours=-3))).strftime("%d/%m/%Y")
+novas = []
 
 for entry in feed.entries:
-    titulo_bruto = entry.title
+    titulo_completo = entry.title
     link = entry.link
 
-    # Extrai o nome do veículo
-    if " - " in titulo_bruto:
-        partes = titulo_bruto.rsplit(" - ", 1)
+    # Separa veículo e título real
+    if " - " in titulo_completo:
+        partes = titulo_completo.rsplit(" - ", 1)
         titulo = partes[0].strip()
         veiculo = partes[1].strip()
     else:
-        titulo = titulo_bruto.strip()
+        titulo = titulo_completo.strip()
         veiculo = entry.get("source", {}).get("title", "Imprensa")
+
+    # Extrai data de publicação real do feed (se existir) ou usa data de hoje
+    if hasattr(entry, "published_parsed") and entry.published_parsed:
+        dt = datetime(*entry.published_parsed[:6])
+        data_formatada = dt.strftime("%d/%m/%Y")
+    else:
+        data_formatada = datetime.now(timezone(timedelta(hours=-3))).strftime("%d/%m/%Y")
 
     # Filtro de relevância
     t_lower = titulo.lower()
     tem_januario = "januário" in t_lower or "januario" in t_lower
-    tem_reforma = any(p in t_lower for p in ["reforma", "obras", "potencial construtivo", "ampliação", "estádio"])
+    tem_reforma = any(w in t_lower for w in ["reforma", "obras", "potencial construtivo", "estádio", "ampliação"])
 
     if tem_januario and tem_reforma:
-        if link not in links_existentes and titulo.lower() not in titulos_existentes:
-            noticias.insert(0, {
-                "data": hoje_str,
+        if titulo.lower() not in titulos_existentes and link not in links_existentes:
+            novas.append({
+                "data": data_formatada,
                 "veiculo": veiculo,
                 "titulo": titulo,
                 "link": link
             })
-            links_existentes.add(link)
             titulos_existentes.add(titulo.lower())
-            novas_adicionadas += 1
+            links_existentes.add(link)
 
-if novas_adicionadas > 0:
-    print(f"Foram adicionadas {novas_adicionadas} nova(s) notícia(s).")
+if novas:
+    print(f"Adicionando {len(novas)} notícia(s) ao feed...")
+    # Coloca as novas notícias no topo
+    noticias = novas + noticias
     with open(ARQUIVO_JSON, "w", encoding="utf-8") as f:
         json.dump(noticias, f, ensure_ascii=False, indent=2)
 else:
-    print("Nenhuma notícia nova encontrada hoje.")
+    print("Nenhuma nova matéria encontrada.")
