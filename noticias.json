@@ -1,5 +1,11 @@
 [
   {
+    "data": "11/09/2026",
+    "veiculo": "pfies.mec.gov.br",
+    "titulo": "são januário reforma｜login app｜ – Apps no Google Play",
+    "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNUkx1M2NtTVB2Z3R0ejl3ZTlyUC15QU5WRmNfMElZaV9reFREZ2c1Tnl6cFNjRDMxRnN5dGFOcGhKX3JTcjI4V1BueGxTZTVTdnJPZnotZWI1SnJjZWZYQmRJMzhDS2t4VW1CaXpOX1dyTHFvSVVRWGkwd3hZdWUyMW9aTWtibGtkbUg2VEVxdWtfclNHZ2dkT3BMY2ZkY0hCQXU5eGRhb0s?oc=5"
+  },
+  {
     "data": "25/07/2026",
     "veiculo": "ge",
     "titulo": "Vasco realiza mudança interna, e presidente da Assembleia Geral assume reforma de São Januário",
@@ -229,12 +235,6 @@
   },
   {
     "data": "06/10/2025",
-    "veiculo": "YouTube",
-    "titulo": "Vasco dá passo decisivo para a reforma de São Januário",
-    "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1ISVdKYWFsZF83bVJLaURtYXFNaVh1SmQ0OVRxUVhjM2dmU2RoSE1VMEMwSVFVMFMtVEdETVV5aEtxZ2FNVGhJbzdCbFQ0NWlrb2k1QnJn?oc=5"
-  },
-  {
-    "data": "06/10/2025",
     "veiculo": "Máquina do Esporte",
     "titulo": "Vasco: Potencial construtivo de São Januário pode render até R$ 600 milhões",
     "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNNFJGNFNJc2pOQjN0bnVEOG1qTWR1Vjl5Z05Wb1BRemM3dDlzZ29xSUd0amNJNWR2VjRyazRnUE1BeTdPWEJRRzhpaUxrcWtlTUR0eFh0cnJ1ZDE2U05hbnlvdUhQUWE2SnlNQWNWY3hHNE5JenBic0xDMVdaS0M2b1dqX0htZTVEejZUSE1RZWlacDQyMzhHb0tINEo0LTExdXh6eDZka1R1OU5PR2padFlNc1VlRmRaU1ZMNDVWZ1hQYWJyUThnUll5cVYtOVU?oc=5"
@@ -310,12 +310,6 @@
     "veiculo": "ge",
     "titulo": "Empresa sinaliza ao Vasco que exercerá intenção de compra do potencial construtivo de São Januário",
     "link": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxPZWtwdWJUU25VY0xvZHhNZjBRT1gxTGRvcXZDZjB0VFpjSHlmSWVtN1VzLXI1eXdodjFkZ3RwVTJXSl90NHZSQXRTMUVIVnplWFc4SFpUbzRuRkhDTUlKcHQzYzZZN2Y2R2JUSVYwZE1KajZaTzl1Si04YjZmZmo5clFNYllqNm9fN0JPNjRmR1ZXeHpMVmF5RXhZbUFnbUxPNEVtcWtROHJRTW1iaTE4dzRqMlJ6VWlxZmJTZ2l4b2pFckgwTXg3dnd3bEl4cmVpQjBtbU9FLWoyYTJKdy1xTlkwbHdMbGotTHNzMm50NEp3bm9tN09j0gGGAkFVX3lxTFB0STg2ZWpwbEpneXZRTzl4bDJlck9pbll0S05UTnRlWU01X3pEQV9GZktKM2x6Yk8zTzZVUGRXMVdRS2haSlU4SnV3NlljejFIdjNPS0lfeU5lcUxhMEFWa2ZybFJITVdlcFNQcmFWdTZLMHNOcnVaZnRITEN2MFZhUHVBM0lnM09IYXhPcUd6M0NKNjVha2kzWkJ4QWxJSHRDS1NRelJqeXVZTXViTXRyb3pkVkxYWjUwdnpRRjEzZWxyaGVKOGVmUFEtbUI1OHNSWERBRjY3M1diUFlyY05zWll0UmdWSVptS0xhbURwaldQanlJY051UGoyRWlRdGZ2WTZna3c?oc=5"
-  },
-  {
-    "data": "05/09/2025",
-    "veiculo": "YouTube",
-    "titulo": "POTENCIAL CONSTRUTIVO PARA REFORMA DE SÃO JANUÁRIO ESTÁ PRATICAMENTE TODO VENDIDO",
-    "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE45UFJiVmtmclpNMEFtYlhnRk1YdXRySkdSakZoQU11b1lMWGdoTWpha2ZvQVVFUHFjcXJxWGQtZWJJTG9jM2J6XzZ0Zm5JRUpYczdlTW9n?oc=5"
   },
   {
     "data": "13/08/2025",
@@ -402,66 +396,6 @@
     "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQOXd3Y29pVkZUdEJRQlBzaFp1elNEenNUOWNYYTZsVHVBa1Q1bF9GdURvTGNadlBJbzVzZWM5aUJKY0RSeHdJVzBBR29uNnhqY1AyVjhSOGpuUklxM2lxMnBvcVpzYzdZZVAyMVg5emxpdXJqOWs2amMzQ3JPdzJoSjc1YUV2TWI3amtzNDd4WVV0NUI3dzRTVG1SalNlbGE1UHpoM0FzcTZSZVg5LVVNWjMtVUp1X3EyaXVXUzhGVzJnVmRyclBfLTdsVGJ6Y3JUdEl3X0lsbFpqNG_SAeoBQVVfeXFMTnZ5akp0VWlhenB0NG9wbVlEc05pZGVPb0V6VFE1dzhIbElfeTluTjZ6dlBfMkVZc0VBVWFrWnF4SlV6OEQ2aUJhLUFvSkVrbjR6bEtWeDJPVFloX2ZjSE5vUlAtNmktcnlsZ1hDcndCS1lRQzdBZHNJS3J0RUtZSi1sUjNYZ0Jqc2F1THpncXoxaE1oSWpsNF8yaHEyVlBtVVZSYU9Ob2hXMnhkZjh6ODdRTEp2a0Y4eWNVMlZ1YkU2cUtoYU82OTJTcG9YcloyRG4ycWI1SnVSWnc0c0k2R3I5WUx4SlJyNlhR?oc=5"
   },
   {
-    "data": "28/03/2025",
-    "veiculo": "YouTube",
-    "titulo": "REFORMA DE SÃO JANUÁRIO",
-    "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1nN2Y4bnQ2U0wtMnZJV1NMTFlhcmdadHN3VHlPWnF3a0MyVWdoTGtIajNNTEhWN0NMc0RmZmtaaE5ENlVxWVpvbUJPX2Q4REh3ZFE5QmdB?oc=5"
-  },
-  {
-    "data": "26/03/2025",
-    "veiculo": "YouTube",
-    "titulo": "REFORMA DE SÃO JANUÁRIO - COMO FUNCIONA O FLUXO DO DINHEIRO DA VENDA DO POTENCIAL?",
-    "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE4xYWtvUVhzdnBWUWZXRlN1Q3ZRNy1QbTVmZm9oX3lpbW5paUJXcnVSQ2NwNVBMcC1oU1pGN0w3dGhkZzNZem0zOGpqQ2Y1eDhuaDBqQjVB?oc=5"
-  },
-  {
-    "data": "25/03/2025",
-    "veiculo": "YouTube",
-    "titulo": "REFORMA DE SÃO JANUÁRIO - A BARREIRA DO VASCO.",
-    "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE56bWxiWVpsQ21kVnZvOWM3d3VRLVFpbUVLUUVkZXZZQTMtOHFDdi1oQ0VtemFsVWNsTDgxRndzaG90NVNsSm04UWRvd1ZYZU5GVVUxaGd3?oc=5"
-  },
-  {
-    "data": "24/03/2025",
-    "veiculo": "YouTube",
-    "titulo": "QUAL VAI SER A CAPACIDADE DE SÃO JANUÁRIO? COMENTAMOS APÓS NOVO VÍDEO SOBRE A REFORMA | CORTES ED",
-    "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE81SUttRVVTS05oaTQwMkQxTHFWTm5RMll5UF90MXRJbFhnb2FWZm5zOFNqdjc4Rm5WdGRrRnNpbFJNbDJtWkt1b2NqVV9fT0VDYTZVbUtR?oc=5"
-  },
-  {
-    "data": "23/03/2025",
-    "veiculo": "YouTube",
-    "titulo": "REFORMA DE SÃO JANUÁRIO - QUAL SERÁ A CAPACIDADE DO NOVO ESTÁDIO?",
-    "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1rcEhwSktRRnBoYjc1ZGlfeHhoRGFHUjdWcUhmdlF3Yk1mME41OW9jektDTTJndjZ4SldKSUxEUE04Qy1KU2g0UTdSSkZGN2dFYjFBQktn?oc=5"
-  },
-  {
-    "data": "19/03/2025",
-    "veiculo": "YouTube",
-    "titulo": "REFORMA DE SÃO JANUÁRIO - É POSSÍVEL COMEÇAR AS OBRAS SEM A VENDA TOTAL DO POTENCIAL CONSTRUTIVO?",
-    "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFAtcWM1UDdIRVpDVno5QkhFT0IzaTNKQmtBMEhDdkhfMzBJcnpUY2R3TkJMcDJsQ2ZoTktyazRVX2xHdnJDeHNEeVVZVnFkNzVSVXZzRGtB?oc=5"
-  },
-  {
-    "data": "17/03/2025",
-    "veiculo": "YouTube",
-    "titulo": "REFORMA DE SÃO JANUÁRIO - A VENDA DO POTENCIAL CONSTRUTIVO",
-    "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9kMUNELVlVdGExUkpIaWN1QlFtVkw0TmltOUU2ckF2Q1hkRHJORmxRcDdJWkg1d09IcGt4cE9aMk4zUXBiTUhrM0lWcEZULWlZcVRTWTlB?oc=5"
-  },
-  {
-    "data": "14/03/2025",
-    "veiculo": "YouTube",
-    "titulo": "REFORMA DE SÃO JANUÁRIO - O ATUAL MOMENTO",
-    "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1fSXU4R3F1dEJVNHFKWk1VVHdPczR2ZWIyeWpLMHBmcWQ4bjc0UkdRR2xCb0hzNGxQYTlmdEJKQTNTLWhyN2Z6UC1taFVZaVJaZWxsSEtR?oc=5"
-  },
-  {
-    "data": "14/03/2025",
-    "veiculo": "YouTube",
-    "titulo": "REFORMA DE SÃO JANUÁRIO - O QUE É E COMO FUNCIONA O POTENCIAL CONSTRUTIVO?",
-    "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBXVVUwUUhJdF8wakhnTVNLczVhV1FBMzJmTkZFcmt3LTBNVW9OWm5ha2ZSUTlFNTZwYVJBSjh5T1drLUFZc3JwakM0a0RtN2l2TmU0Vm1R?oc=5"
-  },
-  {
-    "data": "07/02/2025",
-    "veiculo": "YouTube",
-    "titulo": "REUNIÃO COM A PREFEITURA AVANÇA REFORMA DE SÃO JANUÁRIO | VASCO MOSTRA PROJETO | CAFÉ VASCAÍNO",
-    "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFAxQzhXYVhleUx3U1N3TnV1THdXWDFxRW1BbTFBaWhlLTUwYkdMTnkzQW9jZW55RENRMkt2RW9DZnQ1UHRjbDhJZWlrSFZmZ01uUC1Fdzhn?oc=5"
-  },
-  {
     "data": "30/01/2025",
     "veiculo": "ge",
     "titulo": "Vasco e Prefeitura marcam primeira reunião técnica de 2025 sobre reforma de São Januário",
@@ -484,12 +418,6 @@
     "veiculo": "ge",
     "titulo": "Reforma de São Januário: Prefeitura regulamenta lei de potencial construtivo do estádio",
     "link": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxQdkdiLTc3ZnlqZm1GTXctSXlXdTVmSlRPemE4ak15VVQwb2NLQ0g3NHFKMTE3RDN5R0xDdHdwSHVPYVdoUE5PQTU5LXhyNjhNMnRpR25hWHN2QnZjZXRsN1IzdHNEVHRSb1p4LTNQREhNdUV6YmZiNjA2dXpkR2VPRWtzVDc1YTk1SnJJT3dpU2s2UmhrNWpueXNrbUVucTdxNTlDZXNodnhjSW52aXVCcHRrcFY4bzB2TVhkS3Y4MmZIbERDRDZhZTFZUjNxZEtDbTMzN2szZERFMy1UUkNnZ3Rpb0o4bGPSAfYBQVVfeXFMTmpVNzRPQnFaMUFzVU90ZTJnNW02ZUNrNVEweGItUTBMRnh1WHk4VzhkZ2FlZUQxQ0hwRW0weXFiOHB0aE1Eb1RSUjBlUEN4V1I4OTh4aWkxRUNEUVVSZXNBWkg4S0xLX21GNTA5cWFUa2Rld0tzWU1nclZfTkdPemt4S3kxOWNYODNtNXFHMTRGNUlJS1k4WEswUlhnclpPMWFLS1g4OG9HY2Q0OHpFNkFQMGZnSXNPLTE4TFd0T1E3eXFFWWNMbEs2REdUQ1JXcXF3MnQwdHNKT0NjU05lNjBELUpMQ3lsSG5YMldTVkNhc3p2WW5n?oc=5"
-  },
-  {
-    "data": "29/11/2024",
-    "veiculo": "YouTube",
-    "titulo": "REFORMA DE SÃO JANUÁRIO VAI SAIR OU NÃO? ABRIMOS O JOGO PRA VOCÊ",
-    "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5vWHVyaUdMal9oTjdSOE1qMlEwMndRWGxpWDFna2NmUlM2XzkyLTBxZHhOMXRvMklzSkphdkkxZmhIa2xxcnJ5eS1aa0M1RWN3VHRtSzdR?oc=5"
   },
   {
     "data": "05/11/2024",
@@ -594,10 +522,28 @@
     "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOYkl4alZvLUpjMlRrNDZMVjIyNjBUNEYtWkFGcUNDU0d6YXd1OWgyc1RRZ0lRdF9leFZkWGd3Ny11QVA4Yk1Gdm5LSE1OU29wc1I1ZmdTRE9pZnpnSUJZRlZSLWxyS3kyZU0tRlRWcG94N3g5b1JSdmpmOTVEc0pVYlB6Y01CY1hHaHVyZ2x1SWxjbkNieVlPZHFPR1JzNG9vREVYQnZRcDZEMEloOU01MFVVTC1FeUN5eUhXeFlwV2dUUkN4VEZJN2pNWkh5LThQX1E?oc=5"
   },
   {
+    "data": "03/07/2024",
+    "veiculo": "ESPN Brasil",
+    "titulo": "Prefeito do Rio sanciona lei para reforma de São Januário, puxa 'casaca' e exalta torcida do Vasco: 'A mais apaixonada do Brasil'",
+    "link": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxNaVhVcEQ4OTBHUTBiRGUzWUdnVHR1NEI1WG12ZE0tUWtoMjl1OUs1MzhtYWZoZldjVE1GUWV3a3FBa0hPb3N0eVhHaGQ4MXBBMDFheEc4cUJ5dzlRR3VSRXNKVWxiMU5lS0xvMmFwbVNpeHMyMXloZENCM3k0NHRXVmJLWW5yRjJoN3FtYTI3NFNiMUpVMXlfYk9uOVBlUm9aWmF4UHJJZU56TGZNaUJvQ1dYc2FTcWRCb1lpdFVyNW5hU3VfUlM4d0hZNmZza1IyX2hoRTZ0aGJsbWhRdF9TU1VvcjdlY3J1V0gxZldGQVVYY2pHc3pz?oc=5"
+  },
+  {
     "data": "01/07/2024",
     "veiculo": "Extra online",
     "titulo": "Eduardo Paes sancionará reforma de São Januário na quarta-feira, antes de Vasco x Fortaleza",
     "link": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxQSF9mWkk1a2JkcUxFM1VZQzdnRE1tLUJKUTR6QjA1TmxnNkxrSml3ZXo1VUQxcHMzbHVVTXA0eW9lSkc0V1RKZnJTbnpHUnZEa2xZTTlFcjJKMk1ZeUJaaGpNWm9CeTB3QVA3bmJmMzFCQjZxc093bTZqbDJCaGpTSE5GUEtObERnVEZ5UjlJSVZBcEI0cHUzUHI1bzd3U3NBR3ZCYjJUbFhibzhCM3FZM1hUU29oRG9ERU1zanpYNHNXYUtzSTFJOEVHNy0xYkZpRHoyVzdVR0pjSmJJNERYbER0dng?oc=5"
+  },
+  {
+    "data": "22/06/2024",
+    "veiculo": "ge",
+    "titulo": "Como a queda do Muro de Berlim inspirou projeto de reforma de São Januário, estádio do Vasco",
+    "link": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxOQTkyQVdZMHYtd3hXWWVvdmttam5WM3ZLUGR0Y0FaamZzQXNja3dBRzlLNTI5NG9ibVJMWHk3WXA3RnlJaFNlRGNXb1N2MFdjUWUtRDVqNW5XeUl1MG1XZTlKX2hKNnNGZkdSNllaUjNZX2pqX05mNDZ3ZnowVHBCYmJIMFRvd19HTzhYV29aOUdMMEp4bDkwcVloaXJ3Q0M0WGJWd01ndXJvd3MzSUJzRlpab2JHTVpQbEpkdXhwUXRLNXUwUVhTLWtLcjNzU21BVmJXZ05wdnNIcWpxcXNzZHBRX043VFU5VFQ4M2J30gH8AUFVX3lxTE9pMTVjTlQ0MkRVVlNpcXduOFFwV01JaE9waTdNVUdyUV9XQVliMnVfbGllM1BnX2dOY3lBeW1wTFYzdHdfOVliOE0xQ1dSWjJXNTZQWW5hTko1TlRmNVdvdkllYy04ajktVng1OEZIemFmSXlHbE5IUV9YRzJBZ0NZNXhwZW16czA1MDB6QmxSel8zSDVSWDQtR0VyMENMYnhVRjBLakFwckVpdFBRakdqTmwtbC1tS0Z2bjc3R2RBSnF6c041MjdvWkdYZ3pYQ3IxdExodllKa3JqX3lVSXFtaWtYRVluaW51aW5ldU1jN1V0MGxDb3pYN2lvSw?oc=5"
+  },
+  {
+    "data": "20/06/2024",
+    "veiculo": "O GLOBO",
+    "titulo": "Torres, fachada histórica, cadeiras e arquibancada clássica: o que prevê o projeto de reforma de São Januário",
+    "link": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxQazM0MHprNkotaWxpZ2xveXpxdGE5V21wc0h3aHBCbUh4ZWRzc3lEeml0NFQ5bEhrdGh6ZlppWkhRckZ1VEJvb3h3ZE1HbGlhSGZLX1hIcU1TdDBQbHUtcTJSdHhCRENIV3IyaWJTaDN2c3luUldWZ0Y5bmRfMGpUVmJqdGpJcEpBWmtRNm1RSGVnc012MHZBbTN3MDdpcTNJUHRvUml4Vll6NmlNNWlod0lXMEdmb3dUUktiMkJHcVpiSy1GWHBHMFJRRkhnX1F0MmxTZS1NdUFucTVvMXRFZ2hLSF85ZEdGX29OeXRfQkY3Wk5vd21hYVcwV05FekFsU0o3NFlCdG5XaWPSAZoCQVVfeXFMUGZXMlh4ZVY3cHROaTJhQ0xlaXFqT3ZHZmM3X0c0dXEyUm9rbjVLeTZuZVlHX29NekhrMm1BU0VWdkhxMTVKZWNVVkNCYU5lWFkwOWJvSFdNb0VhUHBvb2RzVnZEVDcwUTdCSW1zb2gtQ291bkRGUVVPaVY3MzAyUktDYy1fZXJxSmJxVWd6OEFPcS1ZXzZzZGZJSXNrMGZqYTRlMlJJYzk4UTNyYnIwclRTdlpKWHN3NXZiOHFoR1kwNmJGT0l0ckZQdXVTUm1UWnNCREJEb0FiaEpqaFZRTzEzVllIdVJ2ZXFQUjFsQmJxbmR5R2pFMGFORzNUOVA2R2lBR2psczk5dWNNLS1LY1BNQVo1QWU1ZFpB?oc=5"
   },
   {
     "data": "19/06/2024",
@@ -618,9 +564,27 @@
     "link": "https://www.camara.rio/"
   },
   {
+    "data": "18/06/2024",
+    "veiculo": "UOL",
+    "titulo": "Vasco: Projeto para a reforma de São Januário é aprovado na Câmara do Rio",
+    "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOcURjSzFMbmhYanFJMjROVmVDd2VFZWhudEp3a09kRFpCaVVEaVppWmtZUmFtbzhtRXhndXlybmdPNWUwalRJMmtKOVNkd2IxczlJQzFqbktyVXVEN0VWZUd0dEl3bmFBRTN6ZTNvdTFlMXhpNUh6dVlKa1FCT2tmY1RTNXNBQy1Bb0c3Q0ZsdFVjUDBnUURqVHZESnd2UGRZa20ySjI3eDB3MjdxU1AzS3NsVWlDNXhVT2VpUHZxWHNrZndCbENLOGxZV20?oc=5"
+  },
+  {
+    "data": "14/06/2024",
+    "veiculo": "Estadão",
+    "titulo": "Vasco recebe proposta por venda de potencial construtivo de São Januário",
+    "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOQzA5a2F5Q25KTkpEWW44VTFvQlZpT1FES3piLWkxOWRLM3k0MjFERlFaaDNOQVdlV3R0NjQydmFfRm8yY1RFVWEwS3hkWEk5eFU2MS12cWk5ZTVBV0p4Q3hyMEF1OXd4dFNOaDVkeDE3UHd1Q1ppUTlDSVgta1pQUjJOWUZackVTNUdnUnJwWXpuMDVma1d0bHBBVnhnWGozNi1STzQ3NFlaMEZEVzJQUlgzNHV1dkxPSlQ2TzZLaVV2Ml83dkYyOEZocUPSAdIBQVVfeXFMUDZrclQ3eW9jQXNZeVlicW9jZWhHQTZ2dV9VY2lXTzdzcTBGZVhvOW9JM0ZyQmtpWlo3aFoydFZtTy0zMFJycDNlOEVtZzJXX0wtWTl1OUw2WEg2YURiT0xzUEM4Y2VTdXFKMW1QR1Uzck1QclNKVEJ5TXRfSmxnT3hxVUZSa3pnLUFTa2FPdnAwN1JacFY1cWxsV2U0bUhEdUpfb2tWdHlTTWZjeUJHQl9Nd3YwTDRiQ0laSUhDUm9nNFpTOVBoUElKNFpFdDhWZFFB?oc=5"
+  },
+  {
     "data": "06/06/2024",
     "veiculo": "ge",
     "titulo": "Reforma de São Januário: PL do potencial construtivo do estádio do Vasco é aprovado em 1ª discussão",
     "link": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxOVDYtV2JTSGVRVFQwWTVMajFXdlhmQ1pJcEUwT3piWURxSXg4ZjYzVlNNWFFaM2FXc1ljN3RCVWlJWHlOMEQ2Q3l5WHhnY2oyU3RER2Ywb2VlajE5ZTN1V2VRQWNmUUtJb3l4QTNMYTFsSG9sNW91ZUxVX00zUXRrcnptZzdQbjNXX0plVEF6TWgybGl3NWFkRFg4eHdXQXM3Nm16RGNGUUd6eWE2LWkwX05kX1IzMmYzSklrTFJxUktrX3VFblg2dkV6TThkVnFLSnpBZmFmTmVUNmExWXh2TGhHOWJSMF9KVG83UHh6alBQZUNlY0Yw0gGGAkFVX3lxTE01bURzWXhTNXNTWDFXcjREODl5QllDQ1p6bWxfZEh1NXdicTNCUHkxcHJHZWZSRUh4MDdieXFQa3U0aVE2NEN2b0xPQ194RWJFTjR3TVk4X0hUU0hGZFJKTVZQcTFyaGNBbUU1WmZYUjZwMVM5eUNzbkJuU2hGX1hyWXZoWUZVYXBXeGVyRjhmUnZjd29HOTF3MUtoQ1pGeTQ2N0EzeVFKbndhS1dJT21PN2x5VjNYV3lUZzU0UVhTVUVLOVdrY3MxbHVRU1pJbVhRUmNNb2RzemFtZGp4S2g1YzhhWFJzX2RRaEVfdzFqT2R2REZVLUFXcGVUT2N1dk9pRlloZkE?oc=5"
+  },
+  {
+    "data": "06/06/2024",
+    "veiculo": "CNN Brasil",
+    "titulo": "Reforma de São Januário: projeto de lei é aprovado em 1ª discussão na Câmara do Rio",
+    "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOY2lXYktsUlN3Y0Vab1V1MVRfNFJscGdod3NRcDl4Q21lS3hzN2JncF9qOUd4Tkd3MXpMMFlKRU9qdm1FSW4xejZFc0NUdGZXYnV0OFdkU1dlS1h3MVBseVd6QUdjb2Y2eXhpZUdRMUhQUlZQUFE5N1RmeEZzMU5aWFkwRHdUTGZXMjM0aXV2RExlVVY2YXVheno5Sy04VFM5SE44anNIYVJYRDNnNlRXUVRRN1VuMndmYkpHZnFQMHI5Q2FxVnNjM3VBUngyek14NjZSSld0YmtBekU?oc=5"
   }
 ]
