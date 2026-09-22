@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cadê a reforma de São Januário?</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="shortcut icon" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -61,12 +63,13 @@
     }
 
     .subtitulo {
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 34px;
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+      color: #cbd5e1;
+      margin-bottom: 32px;
       text-align: center;
+      line-height: 1.45;
+      max-width: 640px;
     }
 
     .card-principal {
@@ -145,8 +148,33 @@
       line-height: 1.4;
     }
 
+    .label-contador strong {
+      color: #f1f5f9;
+      font-weight: 700;
+    }
+
     .descricao-contador strong {
       color: #f1f5f9;
+      font-weight: 700;
+    }
+
+    .pergunta-status {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      min-height: 2.8em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .valor-nao {
+      color: var(--vasco-red);
+      font-size: 2.6rem;
+      text-shadow: 0 0 20px rgba(217, 28, 28, 0.25);
+      letter-spacing: 2px;
     }
 
     .secao-noticias {
@@ -257,13 +285,13 @@
     </svg>
 
     <h1>Cadê a reforma de <span class="destaque">São Januário</span>?</h1>
-    <div class="subtitulo">Monitor de notícias e contadores da colina histórica</div>
+    <div class="subtitulo">Você sabe há quanto tempo nós, vascaínos, estamos esperando a reforma da Colina Histórica?</div>
 
     <!-- Contador Principal -->
     <div class="card-principal">
-      <div class="label-contador">Estamos há</div>
+      <div class="label-contador"><strong>Estamos há</strong></div>
       <div id="dias-sem-noticia" class="valor-contador">...</div>
-      <div class="descricao-contador">sem notícias sobre a reforma de São Januário.</div>
+      <div class="descricao-contador"><strong>sem notícias sobre a reforma de São Januário.</strong></div>
     </div>
 
     <!-- Contadores Históricos -->
@@ -271,12 +299,24 @@
       <div class="card-secundario">
         <div class="label-contador">Já se passaram</div>
         <div id="dias-projeto" class="valor-contador">...</div>
-        <div class="descricao-contador">desde a <strong>apresentação do projeto</strong> em 21 de agosto de 2020.</div>
+        <div class="descricao-contador">desde a <strong>apresentação do projeto de reforma de São Januário</strong> em 21 de agosto de 2020.</div>
       </div>
       <div class="card-secundario">
         <div class="label-contador">Já se passaram</div>
         <div id="dias-potencial" class="valor-contador">...</div>
-        <div class="descricao-contador">desde a <strong>sanção da venda do potencial construtivo</strong> em 3 de julho de 2024.</div>
+        <div class="descricao-contador">desde a <strong>sanção do projeto da venda do potencial construtivo de São Januário pela Prefeitura do Rio</strong> em 3 de julho de 2024.</div>
+      </div>
+    </div>
+
+    <!-- Perguntas de Status Atual -->
+    <div class="grid-secundario">
+      <div class="card-secundario">
+        <div class="pergunta-status">A venda do potencial construtivo de São Januário já foi concluída?</div>
+        <div class="valor-contador valor-nao">NÃO</div>
+      </div>
+      <div class="card-secundario">
+        <div class="pergunta-status">Neste momento, existe algum cronograma para o início das obras em São Januário?</div>
+        <div class="valor-contador valor-nao">NÃO</div>
       </div>
     </div>
 
