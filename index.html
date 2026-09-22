@@ -503,7 +503,7 @@
     }
 
     // Carrega o arquivo noticias.json
-    fetch('noticias.json')
+    fetch('noticias.json?v=' + new Date().getTime())
       .then(response => {
         if (!response.ok) throw new Error('noticias.json não encontrado');
         return response.json();
