@@ -6,33 +6,44 @@ from datetime import datetime, timezone, timedelta
 
 ARQUIVO_JSON = "noticias.json"
 
-TERMOS_BANIDOS = ["netvasco", "supervasco"]
+# Veículos, agregadores e redes sociais banidos
+TERMOS_BANIDOS = [
+    "netvasco",
+    "supervasco",
+    "instagram",
+    "facebook",
+    "threads.net",
+    "twitter.com",
+    "x.com"
+]
 
-def eh_veiculo_banido(veiculo, titulo, link):
+def eh_bloqueado(veiculo, titulo, link):
     texto_analise = f"{veiculo} {titulo} {link}".lower()
     return any(b in texto_analise for b in TERMOS_BANIDOS)
 
-# 1. Bloqueia direto na query do Google News
-termo_busca = '"reforma" "são januário" -site:netvasco.com.br -site:supervasco.com'
+def converter_para_data(data_str):
+    try:
+        partes = data_str.strip().split("/")
+        return datetime(int(partes[2]), int(partes[1]), int(partes[0]))
+    except Exception:
+        return datetime(1970, 1, 1)
+
+# Filtra agregadores e redes diretamente na query
+termo_busca = '"reforma" "são januário" -site:netvasco.com.br -site:supervasco.com -site:instagram.com -site:facebook.com'
 termo_codificado = urllib.parse.quote(termo_busca)
 rss_url = f"https://news.google.com/rss/search?q={termo_codificado}&hl=pt-BR&gl=BR&ceid=BR:pt-419"
 
 feed = feedparser.parse(rss_url)
 
-# 2. Carrega notícias existentes e LIMPA os banidos que já estavam salvos
+# Carrega e higieniza a base atual
 noticias = []
 if os.path.exists(ARQUIVO_JSON):
     with open(ARQUIVO_JSON, "r", encoding="utf-8") as f:
         try:
-            dados_antigos = json.load(f)
-            # Remove qualquer NetVasco ou SuperVasco pré-existente
+            dados = json.load(f)
             noticias = [
-                item for item in dados_antigos
-                if not eh_veiculo_banido(
-                    item.get("veiculo", ""),
-                    item.get("titulo", ""),
-                    item.get("link", "")
-                )
+                n for n in dados
+                if not eh_bloqueado(n.get("veiculo", ""), n.get("titulo", ""), n.get("link", ""))
             ]
         except json.JSONDecodeError:
             noticias = []
@@ -40,13 +51,10 @@ if os.path.exists(ARQUIVO_JSON):
 titulos_existentes = {item.get("titulo", "").strip().lower() for item in noticias}
 links_existentes = {item.get("link") for item in noticias}
 
-novas = []
-
 for entry in feed.entries:
     titulo_completo = entry.title
     link = entry.link
 
-    # Identifica o veículo da matéria
     if " - " in titulo_completo:
         partes = titulo_completo.rsplit(" - ", 1)
         titulo = partes[0].strip()
@@ -55,26 +63,24 @@ for entry in feed.entries:
         titulo = titulo_completo.strip()
         veiculo = entry.get("source", {}).get("title", "Imprensa")
 
-    # Descarta imediatamente agregadores
-    if eh_veiculo_banido(veiculo, titulo, link):
+    if eh_bloqueado(veiculo, titulo, link):
         continue
 
-    # Extrai a data ou usa a de Brasília
+    # Data de publicação do feed ou data atual no fuso de Brasília
     if hasattr(entry, "published_parsed") and entry.published_parsed:
-        dt = datetime(*entry.published_parsed[:6])
-        data_formatada = dt.strftime("%d/%m/%Y")
+        dt = datetime(*entry.published_parsed[:6]) - timedelta(hours=3)
+        data_str = dt.strftime("%d/%m/%Y")
     else:
-        data_formatada = datetime.now(timezone(timedelta(hours=-3))).strftime("%d/%m/%Y")
+        data_str = datetime.now(timezone(timedelta(hours=-3))).strftime("%d/%m/%Y")
 
-    # Filtro temático
     t_lower = titulo.lower()
     tem_januario = "januário" in t_lower or "januario" in t_lower
     tem_reforma = any(w in t_lower for w in ["reforma", "obras", "potencial construtivo", "estádio", "ampliação"])
 
     if tem_januario and tem_reforma:
         if titulo.lower() not in titulos_existentes and link not in links_existentes:
-            novas.append({
-                "data": data_formatada,
+            noticias.append({
+                "data": data_str,
                 "veiculo": veiculo,
                 "titulo": titulo,
                 "link": link
@@ -82,10 +88,10 @@ for entry in feed.entries:
             titulos_existentes.add(titulo.lower())
             links_existentes.add(link)
 
-# Junta as novas no topo e salva o arquivo limpo
-noticias = novas + noticias
+# Ordenação decrescente rigorosa: da mais recente para a mais antiga
+noticias.sort(key=lambda n: converter_para_data(n.get("data", "")), reverse=True)
 
 with open(ARQUIVO_JSON, "w", encoding="utf-8") as f:
     json.dump(noticias, f, ensure_ascii=False, indent=2)
 
-print(f"Execução concluída. Total no JSON: {len(noticias)} notícias ({len(novas)} novas adicionadas).")
+print(f"Base atualizada com sucesso. Total: {len(noticias)} notícias ordenadas cronologicamente.")
