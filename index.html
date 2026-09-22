@@ -15,7 +15,6 @@
       --vasco-red: #d91c1c;
       --text-main: #f1f5f9;
       --text-muted: #94a3b8;
-      --card-hover: #171d25;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,7 +38,6 @@
       align-items: center;
     }
 
-    /* Silhueta São Januário */
     .silhouette {
       width: 280px;
       height: 80px;
@@ -47,7 +45,6 @@
       opacity: 0.9;
     }
 
-    /* Título com Tipografia Cinzel */
     h1 {
       font-family: 'Cinzel', serif;
       font-size: 2.1rem;
@@ -72,7 +69,6 @@
       text-align: center;
     }
 
-    /* Cards */
     .card-principal {
       width: 100%;
       background: var(--card-bg);
@@ -113,7 +109,6 @@
 
     .valor-contador {
       font-family: 'Cinzel', serif;
-      font-size: 3.2rem;
       font-weight: 900;
       line-height: 1;
       margin: 8px 0;
@@ -154,7 +149,6 @@
       color: #f1f5f9;
     }
 
-    /* Seção de Notícias */
     .secao-noticias {
       width: 100%;
       background: var(--card-bg);
@@ -249,13 +243,11 @@
 
   <div class="container">
     
-    <!-- Silhueta Vetorial Neomanuelina de São Januário -->
     <svg class="silhouette" viewBox="0 0 500 140" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M 250 14 V 28" stroke="#d91c1c" stroke-width="2.5" stroke-linecap="round"/>
       <path d="M 245 20 H 255" stroke="#d91c1c" stroke-width="2.5" stroke-linecap="round"/>
       <path d="M 50 135 H 450" stroke="#71717a" stroke-width="2" stroke-linecap="round"/>
       <path d="M 60 135 V 95 H 125 V 82 C 145 82 155 70 170 70 C 185 70 195 82 215 82 V 72 C 225 72 232 50 250 28 C 268 50 275 72 285 72 V 82 C 305 82 315 70 330 70 C 345 70 355 82 375 82 V 95 H 440 V 135" stroke="#a1a1aa" stroke-width="2.5" stroke-linejoin="round" fill="none"/>
-      <!-- Pináculos e detalhes laterais -->
       <path d="M 65 95 V 72 M 120 82 V 65 M 380 82 V 65 M 435 95 V 72" stroke="#a1a1aa" stroke-width="2" stroke-linecap="round"/>
       <circle cx="65" cy="70" r="3" fill="#a1a1aa"/>
       <circle cx="120" cy="63" r="3" fill="#a1a1aa"/>
@@ -288,7 +280,7 @@
       </div>
     </div>
 
-    <!-- Lista de Notícias -->
+    <!-- Notícias -->
     <div class="secao-noticias">
       <div class="cabecalho-noticias">
         <div class="titulo-noticias">
@@ -296,35 +288,69 @@
         </div>
         <div id="total-noticias" class="contagem-badge">Carregando...</div>
       </div>
-      <div id="feed-noticias" class="lista-noticias">
-        <div class="item-noticia" style="justify-content: center; color: var(--text-muted);">
-          Buscando notícias cadastradas...
-        </div>
-      </div>
+      <div id="feed-noticias" class="lista-noticias"></div>
     </div>
 
   </div>
 
   <script>
+    // Base de segurança imediata (o ecrã nunca fica vazio)
+    const NOTICIAS_BASE = [
+      {
+        "data": "15/05/2026",
+        "veiculo": "Lance!",
+        "titulo": "Reforma de São Januário segue sem data para começar; Vasco enfrenta dificuldades na venda de potencial",
+        "link": "https://www.lance.com.br/vasco/reforma-de-sao-januario-segue-sem-data-para-comecar-vasco-enfrenta-dificuldades-na-venda-de-potencial.html"
+      },
+      {
+        "data": "21/04/2026",
+        "veiculo": "Lance!",
+        "titulo": "São Januário completa 99 anos, mas reforma segue travada à espera da venda do potencial construtivo",
+        "link": "https://www.lance.com.br/vasco/sao-januario-completa-99-anos-mas-reforma-segue-travada-a-espera-da-venda-do-potencial-construtivo.html"
+      },
+      {
+        "data": "12/01/2026",
+        "veiculo": "NSC Total / ge",
+        "titulo": "O que falta para o Vasco iniciar a demolição e reforma do estádio São Januário",
+        "link": "https://www.nsctotal.com.br/esportes/o-que-falta-para-o-vasco-iniciar-a-demolicao-e-reforma-do-estadio-sao-januario"
+      },
+      {
+        "data": "03/07/2024",
+        "veiculo": "Prefeitura do Rio",
+        "titulo": "Eduardo Paes sanciona lei do potencial construtivo para a reforma e ampliação de São Januário",
+        "link": "https://prefeitura.rio/"
+      }
+    ];
+
     function formatarContador(totalDias) {
       if (isNaN(totalDias) || totalDias === null) return `0 <span class="unidade-dias">dias</span>`;
       const sufixo = totalDias === 1 ? 'dia' : 'dias';
       return `${totalDias} <span class="unidade-dias">${sufixo}</span>`;
     }
 
+    function getHojeBrasilia() {
+      const agora = new Date();
+      const partes = new Intl.DateTimeFormat('pt-BR', {
+        timeZone: 'America/Sao_Paulo',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }).formatToParts(agora);
+
+      const ano = parseInt(partes.find(p => p.type === 'year').value);
+      const mes = parseInt(partes.find(p => p.type === 'month').value) - 1;
+      const dia = parseInt(partes.find(p => p.type === 'day').value);
+
+      return new Date(ano, mes, dia);
+    }
+
     function calcularDias(dataInicioISO) {
       const p = dataInicioISO.split('-');
       const d1 = new Date(parseInt(p[0]), parseInt(p[1]) - 1, parseInt(p[2]));
-      const hoje = new Date();
-      hoje.setHours(0, 0, 0, 0);
-      d1.setHours(0, 0, 0, 0);
+      const hoje = getHojeBrasilia();
       const diff = hoje - d1;
       return Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
     }
-
-    // Calcula os contadores históricos imediatamente
-    document.getElementById('dias-projeto').innerHTML = formatarContador(calcularDias('2020-08-21'));
-    document.getElementById('dias-potencial').innerHTML = formatarContador(calcularDias('2024-07-03'));
 
     function parseDataBR(str) {
       if (!str) return null;
@@ -333,65 +359,67 @@
       return new Date(parseInt(partes[2]), parseInt(partes[1]) - 1, parseInt(partes[0]));
     }
 
-    // Carrega o JSON de notícias
-    fetch('./noticias.json?v=' + new Date().getTime())
+    // Inicializa contadores fixos imediatamente
+    document.getElementById('dias-projeto').innerHTML = formatarContador(calcularDias('2020-08-21'));
+    document.getElementById('dias-potencial').innerHTML = formatarContador(calcularDias('2024-07-03'));
+
+    function renderizar(noticias) {
+      const feed = document.getElementById('feed-noticias');
+      const badgeTotal = document.getElementById('total-noticias');
+
+      noticias.sort((a, b) => {
+        const dA = parseDataBR(a.data) || new Date(0);
+        const dB = parseDataBR(b.data) || new Date(0);
+        return dB - dA;
+      });
+
+      badgeTotal.textContent = `${noticias.length} notícia${noticias.length > 1 ? 's' : ''}`;
+
+      // Contador principal
+      const dNoticia = parseDataBR(noticias[0].data);
+      if (dNoticia) {
+        const hoje = getHojeBrasilia();
+        const diffDias = Math.max(0, Math.floor((hoje - dNoticia) / (1000 * 60 * 60 * 24)));
+        document.getElementById('dias-sem-noticia').innerHTML = formatarContador(diffDias);
+      } else {
+        document.getElementById('dias-sem-noticia').innerHTML = formatarContador(0);
+      }
+
+      // Renderiza itens
+      feed.innerHTML = noticias.map(n => {
+        const veiculo = n.veiculo || n.fonte || 'Imprensa';
+        return `
+          <article class="item-noticia">
+            <span class="badge-data">[${n.data}]</span>
+            <span class="badge-veiculo">[${veiculo}]</span>
+            <a href="${n.link}" target="_blank" rel="noopener noreferrer" class="link-noticia">
+              ${n.titulo}
+            </a>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // Renderiza a base de imediato para a página nunca ficar em branco
+    renderizar(NOTICIAS_BASE);
+
+    // Constrói o URL absoluto exato da pasta atual para evitar erros 404 no GitHub Pages
+    const baseUrl = window.location.href.split(/[?#]/)[0].replace(/\/[^\/]*$/, '/');
+    const jsonUrl = baseUrl + 'noticias.json?v=' + Date.now();
+
+    fetch(jsonUrl)
       .then(res => {
-        if (!res.ok) throw new Error('Arquivo noticias.json não encontrado');
+        if (!res.ok) throw new Error('Status HTTP: ' + res.status);
         return res.json();
       })
-      .then(noticias => {
-        const feed = document.getElementById('feed-noticias');
-        const badgeTotal = document.getElementById('total-noticias');
-        
-        if (!Array.isArray(noticias) || noticias.length === 0) {
-          document.getElementById('dias-sem-noticia').innerHTML = formatarContador(0);
-          badgeTotal.textContent = '0 notícias';
-          feed.innerHTML = '<div class="item-noticia">Nenhuma notícia registrada ainda.</div>';
-          return;
+      .then(dadosRemotos => {
+        if (Array.isArray(dadosRemotos) && dadosRemotos.length > 0) {
+          renderizar(dadosRemotos);
         }
-
-        // Garante ordenação cronológica decrescente no navegador
-        noticias.sort((a, b) => {
-          const dA = parseDataBR(a.data) || new Date(0);
-          const dB = parseDataBR(b.data) || new Date(0);
-          return dB - dA;
-        });
-
-        badgeTotal.textContent = `${noticias.length} notícia${noticias.length > 1 ? 's' : ''}`;
-
-        // 1. Contador principal: data da notícia mais recente (topo da lista ordenada)
-        const dNoticia = parseDataBR(noticias[0].data);
-        if (dNoticia) {
-          const hoje = getHojeBrasilia();
-          const diffDias = Math.max(0, Math.floor((hoje - dNoticia) / (1000 * 60 * 60 * 24)));
-          document.getElementById('dias-sem-noticia').innerHTML = formatarContador(diffDias);
-        } else {
-          document.getElementById('dias-sem-noticia').innerHTML = formatarContador(0);
-        }
-
-        // 2. Renderização da lista
-        feed.innerHTML = noticias.map(n => {
-          const veiculo = n.veiculo || n.fonte || 'Imprensa';
-          return `
-            <article class="item-noticia">
-              <span class="badge-data">[${n.data}]</span>
-              <span class="badge-veiculo">[${veiculo}]</span>
-              <a href="${n.link}" target="_blank" rel="noopener noreferrer" class="link-noticia">
-                ${n.titulo}
-              </a>
-            </article>
-          `;
-        }).join('');
       })
       .catch(err => {
-        console.error(err);
-        document.getElementById('dias-sem-noticia').innerHTML = formatarContador(0);
-        document.getElementById('total-noticias').textContent = 'Erro';
-        document.getElementById('feed-noticias').innerHTML = `
-          <div class="item-noticia" style="color: #ef4444;">
-            Não foi possível carregar as notícias.
-          </div>
-        `;
+        // Mantém a renderização da base que já está visível
+        console.warn('Ficheiro remoto não acessível (' + err.message + '). A manter dados locais.');
       });
   </script>
 </body>
