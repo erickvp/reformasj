@@ -1,4 +1,4 @@
-name: Atualizar Noticias Diarias
+name: Atualizar Notícias Diarias
 
 on:
   schedule:
