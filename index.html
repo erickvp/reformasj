@@ -414,104 +414,80 @@
   </div>
 
   <script>
-    // Função utilitária para calcular a diferença em dias corridos
-    function calcularDiasPassados(dataString) {
-      const dataAlvo = new Date(dataString + 'T00:00:00-03:00'); // Horário de Brasília
+    <script>
+    // Função auxiliar para calcular diferença em dias a partir de YYYY-MM-DD
+    function calcularDiasAteHoje(dataStrISO) {
+      const partes = dataStrISO.split('-');
+      const dataAlvo = new Date(parseInt(partes[0]), parseInt(partes[1]) - 1, parseInt(partes[2]));
       const hoje = new Date();
-      // Zera horas para contar dias inteiros
-      const dataHojeZerada = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
-      const dataAlvoZerada = new Date(dataAlvo.getFullYear(), dataAlvo.getMonth(), dataAlvo.getDate());
-      
-      const diffMs = dataHojeZerada - dataAlvoZerada;
+      hoje.setHours(0, 0, 0, 0);
+      dataAlvo.setHours(0, 0, 0, 0);
+      const diffMs = hoje.getTime() - dataAlvo.getTime();
       return Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
     }
 
-    // Atualiza o elemento de contador com singular/plural dinâmico
-    function renderizarContador(elementoId, totalDias) {
-      const el = document.getElementById(elementoId);
-      if (!el) return;
-      const unidade = totalDias === 1 ? 'dia' : 'dias';
-      el.innerHTML = `<span class="num">${totalDias}</span> <span class="unidade-dias">${unidade}</span>`;
+    // Converte data no formato DD/MM/AAAA para objeto Date
+    function parseDataBR(dataStr) {
+      if (!dataStr) return null;
+      const partes = dataStr.trim().split('/');
+      if (partes.length !== 3) return null;
+      return new Date(parseInt(partes[2]), parseInt(partes[1]) - 1, parseInt(partes[0]));
     }
 
-    // Datas fixadas dos marcos históricos
-    const DATA_PROJETO = '2020-08-21'; // Apresentação do projeto
-    const DATA_LEI = '2024-07-03';     // Sanção da Lei Complementar nº 269/2024
-
-    // Inicializa os dois contadores fixos imediatamente
-    renderizarContador('cnt-projeto-2020', calcularDiasPassados(DATA_PROJETO));
-    renderizarContador('cnt-lei-2024', calcularDiasPassados(DATA_LEI));
-
-    // Base fallback caso o noticias.json falhe ou esteja em carregamento local
-    const fallbackNoticias = [
-      {
-        titulo: "Prefeito Eduardo Paes sanciona lei do potencial construtivo de São Januário",
-        link: "https://ge.globo.com/futebol/times/vasco/noticia/2024/07/03/prefeito-eduardo-paes-sanciona-lei-do-potencial-construtivo-de-sao-januario.ghtml",
-        data: "2024-07-03",
-        veiculo: "ge.globo"
-      },
-      {
-        titulo: "Câmara do Rio aprova em definitivo projeto do potencial construtivo de São Januário",
-        link: "https://ge.globo.com/futebol/times/vasco/noticia/2024/06/18/camara-do-rio-aprova-em-definitivo-projeto-do-potencial-construtivo-de-sao-januario.ghtml",
-        data: "2024-06-18",
-        veiculo: "ge.globo"
-      },
-      {
-        titulo: "Vasco apresenta projeto de reforma e modernização de São Januário",
-        link: "https://ge.globo.com/futebol/times/vasco/noticia/vasco-apresenta-projeto-de-reforma-de-sao-januario.ghtml",
-        data: "2020-08-21",
-        veiculo: "ge.globo"
-      }
-    ];
-
-    function popularListaNoticias(noticias) {
-      const listaEl = document.getElementById('news-list');
-      const contagemEl = document.getElementById('news-count');
-
-      if (!Array.isArray(noticias) || noticias.length === 0) {
-        listaEl.innerHTML = '<div class="news-item"><span class="news-link">Nenhuma notícia encontrada ainda.</span></div>';
-        contagemEl.textContent = '0 registros';
+    function renderizarContador(elementoId, totalDias) {
+      const elemento = document.getElementById(elementoId);
+      if (!elemento) return;
+      if (isNaN(totalDias)) {
+        elemento.innerHTML = `0 <span class="unidade-dias">dias</span>`;
         return;
       }
-
-      contagemEl.textContent = `${noticias.length} notícia${noticias.length > 1 ? 's' : ''}`;
-
-      // Ordena decrescente por data
-      noticias.sort((a, b) => new Date(b.data) - new Date(a.data));
-
-      // Atualiza o contador de dias sem notícias
-      const ultimaNoticia = noticias[0];
-      const diasSemNoticias = calcularDiasPassados(ultimaNoticia.data);
-      renderizarContador('cnt-sem-noticias', diasSemNoticias);
-
-      // Renderiza no formato: [Data] [Nome do veículo] [Título da Notícia]
-      listaEl.innerHTML = noticias.map(n => {
-        const [ano, mes, dia] = n.data.split('-');
-        const dataFormatada = `${dia}/${mes}/${ano}`;
-        const veiculoFormatado = n.veiculo || n.fonte || 'Notícia';
-
-        return `
-          <div class="news-item">
-            <span class="news-tag-date">[${dataFormatada}]</span>
-            <span class="news-tag-vehicle">[${veiculoFormatado}]</span>
-            <a href="${n.link}" target="_blank" rel="noopener noreferrer" class="news-link">
-              ${n.titulo}
-            </a>
-          </div>
-        `;
-      }).join('');
+      const sufixo = totalDias === 1 ? 'dia' : 'dias';
+      elemento.innerHTML = `${totalDias} <span class="unidade-dias">${sufixo}</span>`;
     }
 
-    // Carrega o arquivo noticias.json
+    // Contadores Fixos
+    renderizarContador('dias-projeto', calcularDiasAteHoje('2020-08-21'));
+    renderizarContador('dias-potencial', calcularDiasAteHoje('2024-07-03'));
+
+    // Carrega notícias dinâmicas e calcula o contador principal
     fetch('noticias.json?v=' + new Date().getTime())
-      .then(response => {
-        if (!response.ok) throw new Error('noticias.json não encontrado');
-        return response.json();
+      .then(res => res.json())
+      .then(noticias => {
+        if (!Array.isArray(noticias) || noticias.length === 0) {
+          document.getElementById('total-noticias').textContent = '0 notícias';
+          return;
+        }
+
+        document.getElementById('total-noticias').textContent = `${noticias.length} notícias`;
+
+        // 1. Calcula dias desde a última notícia (primeiro item)
+        const ultimaData = parseDataBR(noticias[0].data);
+        if (ultimaData) {
+          const hoje = new Date();
+          hoje.setHours(0, 0, 0, 0);
+          ultimaData.setHours(0, 0, 0, 0);
+          const diffMs = hoje.getTime() - ultimaData.getTime();
+          const diasSemNoticia = Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
+          renderizarContador('dias-sem-noticia', diasSemNoticia);
+        }
+
+        // 2. Renderiza a lista no padrão [Data] [Veículo] Título
+        const feedContainer = document.getElementById('feed-noticias');
+        feedContainer.innerHTML = noticias.map(n => {
+          const veiculo = n.veiculo || n.fonte || 'Imprensa';
+          return `
+            <article class="card-noticia">
+              <span class="badge-data">[${n.data}]</span>
+              <span class="badge-veiculo">[${veiculo.toUpperCase()}]</span>
+              <a href="${n.link}" target="_blank" rel="noopener noreferrer" class="link-noticia">
+                ${n.titulo}
+              </a>
+            </article>
+          `;
+        }).join('');
       })
-      .then(noticias => popularListaNoticias(noticias))
       .catch(err => {
-        console.warn('Carregando dados de demonstração (fallback):', err);
-        popularListaNoticias(fallbackNoticias);
+        console.error('Erro ao carregar notícias:', err);
       });
   </script>
 </body>
