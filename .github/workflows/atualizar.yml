@@ -7,18 +7,9 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
-  coletar-e-publicar:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  rodar-coletor:
     runs-on: ubuntu-latest
     steps:
       - name: Baixar repositorio
@@ -34,10 +25,10 @@ jobs:
       - name: Instalar feedparser
         run: pip install feedparser
 
-      - name: Rodar coletor
+      - name: Executar script coletor
         run: python atualizar_noticias.py
 
-      - name: Salvar alteracoes no repositorio
+      - name: Salvar noticias.json
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -45,16 +36,6 @@ jobs:
           if ! git diff --staged --quiet; then
             git commit -m "Auto: noticias atualizadas [skip ci]"
             git push
+          else
+            echo "Nenhuma novidade hoje."
           fi
-
-      - name: Configurar Pages
-        uses: actions/configure-pages@v4
-
-      - name: Empacotar site
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-
-      - name: Publicar no GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
