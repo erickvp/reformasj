@@ -1,13 +1,17 @@
 import os
 import json
 import feedparser
+import urllib.parse  # <-- Nova biblioteca adicionada para corrigir a URL
 from datetime import datetime, timezone, timedelta
 
 ARQUIVO_JSON = "noticias.json"
 
 # Busca no RSS do Google News filtrado pelas últimas 48h
 termo_busca = "reforma são januário"
-rss_url = f"https://news.google.com/rss/search?q={termo_busca}+when:48h&hl=pt-BR&gl=BR&ceid=BR:pt-419"
+# Converte espaços e acentos para formato seguro de link (ex: espaço vira %20)
+termo_codificado = urllib.parse.quote(termo_busca) 
+
+rss_url = f"https://news.google.com/rss/search?q={termo_codificado}+when:48h&hl=pt-BR&gl=BR&ceid=BR:pt-419"
 
 feed = feedparser.parse(rss_url)
 
