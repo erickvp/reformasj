@@ -280,13 +280,13 @@
       </div>
     </div>
 
-    <!-- Notícias -->
+    <!-- Seção de Notícias -->
     <div class="secao-noticias">
       <div class="cabecalho-noticias">
         <div class="titulo-noticias">
           <span class="cruz">✠</span> Últimas Notícias
         </div>
-        <div id="total-noticias" class="contagem-badge">Carregando...</div>
+        <div id="total-noticias" class="contagem-badge">...</div>
       </div>
       <div id="feed-noticias" class="lista-noticias"></div>
     </div>
@@ -294,8 +294,8 @@
   </div>
 
   <script>
-    // Base de segurança imediata (o ecrã nunca fica vazio)
-    const NOTICIAS_BASE = [
+    // Lista fixa de notícias (sem depender de nenhum arquivo externo nem do robô)
+    const NOTICIAS = [
       {
         "data": "15/05/2026",
         "veiculo": "Lance!",
@@ -313,6 +313,12 @@
         "veiculo": "NSC Total / ge",
         "titulo": "O que falta para o Vasco iniciar a demolição e reforma do estádio São Januário",
         "link": "https://www.nsctotal.com.br/esportes/o-que-falta-para-o-vasco-iniciar-a-demolicao-e-reforma-do-estadio-sao-januario"
+      },
+      {
+        "data": "03/10/2025",
+        "veiculo": "Folha de Pernambuco / Estadão",
+        "titulo": "Vasco e prefeitura do Rio assinam termo do potencial construtivo para modernizar São Januário",
+        "link": "https://www.folhape.com.br/esportes/vasco-e-prefeitura-do-rio-assinam-termo/442190/"
       },
       {
         "data": "03/07/2024",
@@ -359,68 +365,40 @@
       return new Date(parseInt(partes[2]), parseInt(partes[1]) - 1, parseInt(partes[0]));
     }
 
-    // Inicializa contadores fixos imediatamente
+    // Calcula contadores históricos imediatamente
     document.getElementById('dias-projeto').innerHTML = formatarContador(calcularDias('2020-08-21'));
     document.getElementById('dias-potencial').innerHTML = formatarContador(calcularDias('2024-07-03'));
 
-    function renderizar(noticias) {
-      const feed = document.getElementById('feed-noticias');
-      const badgeTotal = document.getElementById('total-noticias');
+    // Renderiza notícias e contador principal
+    const feed = document.getElementById('feed-noticias');
+    const badgeTotal = document.getElementById('total-noticias');
 
-      noticias.sort((a, b) => {
-        const dA = parseDataBR(a.data) || new Date(0);
-        const dB = parseDataBR(b.data) || new Date(0);
-        return dB - dA;
-      });
+    NOTICIAS.sort((a, b) => {
+      const dA = parseDataBR(a.data) || new Date(0);
+      const dB = parseDataBR(b.data) || new Date(0);
+      return dB - dA;
+    });
 
-      badgeTotal.textContent = `${noticias.length} notícia${noticias.length > 1 ? 's' : ''}`;
+    badgeTotal.textContent = `${NOTICIAS.length} notícias`;
 
-      // Contador principal
-      const dNoticia = parseDataBR(noticias[0].data);
-      if (dNoticia) {
-        const hoje = getHojeBrasilia();
-        const diffDias = Math.max(0, Math.floor((hoje - dNoticia) / (1000 * 60 * 60 * 24)));
-        document.getElementById('dias-sem-noticia').innerHTML = formatarContador(diffDias);
-      } else {
-        document.getElementById('dias-sem-noticia').innerHTML = formatarContador(0);
-      }
-
-      // Renderiza itens
-      feed.innerHTML = noticias.map(n => {
-        const veiculo = n.veiculo || n.fonte || 'Imprensa';
-        return `
-          <article class="item-noticia">
-            <span class="badge-data">[${n.data}]</span>
-            <span class="badge-veiculo">[${veiculo}]</span>
-            <a href="${n.link}" target="_blank" rel="noopener noreferrer" class="link-noticia">
-              ${n.titulo}
-            </a>
-          </article>
-        `;
-      }).join('');
+    const dUltima = parseDataBR(NOTICIAS[0].data);
+    if (dUltima) {
+      const hoje = getHojeBrasilia();
+      const diffDias = Math.max(0, Math.floor((hoje - dUltima) / (1000 * 60 * 60 * 24)));
+      document.getElementById('dias-sem-noticia').innerHTML = formatarContador(diffDias);
+    } else {
+      document.getElementById('dias-sem-noticia').innerHTML = formatarContador(0);
     }
 
-    // Renderiza a base de imediato para a página nunca ficar em branco
-    renderizar(NOTICIAS_BASE);
-
-    // Constrói o URL absoluto exato da pasta atual para evitar erros 404 no GitHub Pages
-    const baseUrl = window.location.href.split(/[?#]/)[0].replace(/\/[^\/]*$/, '/');
-    const jsonUrl = baseUrl + 'noticias.json?v=' + Date.now();
-
-    fetch(jsonUrl)
-      .then(res => {
-        if (!res.ok) throw new Error('Status HTTP: ' + res.status);
-        return res.json();
-      })
-      .then(dadosRemotos => {
-        if (Array.isArray(dadosRemotos) && dadosRemotos.length > 0) {
-          renderizar(dadosRemotos);
-        }
-      })
-      .catch(err => {
-        // Mantém a renderização da base que já está visível
-        console.warn('Ficheiro remoto não acessível (' + err.message + '). A manter dados locais.');
-      });
+    feed.innerHTML = NOTICIAS.map(n => `
+      <article class="item-noticia">
+        <span class="badge-data">[${n.data}]</span>
+        <span class="badge-veiculo">[${n.veiculo}]</span>
+        <a href="${n.link}" target="_blank" rel="noopener noreferrer" class="link-noticia">
+          ${n.titulo}
+        </a>
+      </article>
+    `).join('');
   </script>
 </body>
 </html>
