@@ -177,6 +177,81 @@
       letter-spacing: 2px;
     }
 
+    .secao-redes {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .label-redes {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+
+    .botoes-redes {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-rede {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0f1318;
+      border: 1px solid #1e242d;
+      color: #f1f5f9;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-rede:hover {
+      border-color: var(--vasco-red);
+      color: #ffffff;
+      background: #171d25;
+      box-shadow: 0 0 15px rgba(217, 28, 28, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .icone-rede {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 600px) {
+      .secao-redes {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .botoes-redes {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+      }
+      .btn-rede {
+        justify-content: center;
+        padding: 8px 6px;
+        font-size: 0.78rem;
+      }
+    }
+
     .secao-noticias {
       width: 100%;
       background: var(--card-bg);
@@ -298,13 +373,13 @@
     <div class="grid-secundario">
       <div class="card-secundario">
         <div class="label-contador">Já se passaram</div>
-        <div id="dias-projeto" class="valor-contador">...</div>
-        <div class="descricao-contador">desde a <strong>apresentação do projeto de reforma de São Januário</strong> em 21 de agosto de 2020.</div>
+        <div id="dias-potencial" class="valor-contador">...</div>
+        <div class="descricao-contador">desde a <strong>sanção do projeto da venda do potencial construtivo de São Januário pela Prefeitura do Rio</strong> em 3 de julho de 2024.</div>
       </div>
       <div class="card-secundario">
         <div class="label-contador">Já se passaram</div>
-        <div id="dias-potencial" class="valor-contador">...</div>
-        <div class="descricao-contador">desde a <strong>sanção do projeto da venda do potencial construtivo de São Januário pela Prefeitura do Rio</strong> em 3 de julho de 2024.</div>
+        <div id="dias-projeto" class="valor-contador">...</div>
+        <div class="descricao-contador">desde a <strong>apresentação do projeto de reforma de São Januário</strong> em 21 de agosto de 2020.</div>
       </div>
     </div>
 
@@ -317,6 +392,31 @@
       <div class="card-secundario">
         <div class="pergunta-status">Neste momento, existe algum cronograma para o início das obras em São Januário?</div>
         <div class="valor-contador valor-nao">NÃO</div>
+      </div>
+    </div>
+
+    <!-- Redes Sociais -->
+    <div class="secao-redes">
+      <span class="label-redes">Siga a nossa contagem nas redes sociais:</span>
+      <div class="botoes-redes">
+        <a href="https://x.com/cadeareforma" target="_blank" rel="noopener noreferrer" class="btn-rede btn-x">
+          <svg class="icone-rede" viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          <span>X / Twitter</span>
+        </a>
+        <a href="https://www.threads.net/@cadeareforma" target="_blank" rel="noopener noreferrer" class="btn-rede btn-threads">
+          <svg class="icone-rede" viewBox="0 0 192 192">
+            <path d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4101 44.745 97.2583 44.745 97.1065 44.745C75.4218 44.745 58.0772 58.2678 55.459 79.9197C55.0744 83.102 54.8819 86.4449 54.8819 89.9209C54.8819 93.3087 55.0694 96.5683 55.4419 99.6705C57.9944 120.932 75.334 134.455 97.0264 134.455C97.1782 134.455 97.33 134.455 97.4818 134.455C113.882 134.35 126.793 126.398 133.565 112.164L117.439 104.708C113.255 113.504 105.748 117.859 97.4158 117.915C85.7337 117.915 75.5297 110.669 73.0697 97.5029C76.8159 98.7779 80.8937 99.4673 85.2215 99.4673C99.8876 99.4673 109.972 92.5188 111.458 81.3653C111.758 79.1158 111.492 76.8407 110.678 74.7571C109.006 70.4721 104.596 66.8624 97.5619 66.8624C88.2255 66.8624 82.5296 72.8277 81.7067 80.9577C81.4287 83.7042 81.7454 86.5186 82.6468 89.1764C72.8465 89.1764 69.4387 79.7997 69.4387 73.9197C70.6277 59.8398 81.3323 51.345 97.1065 51.345C113.659 51.345 123.633 62.5999 124.646 82.4996C121.782 81.2588 118.665 80.2076 115.309 79.3794L113.067 94.6293C116.739 95.5323 120.375 96.7909 123.864 98.3754C122.955 106.634 119.866 113.565 114.774 118.643C108.681 124.717 99.9887 127.855 89.9715 127.855C75.2974 127.855 63.6669 119.466 59.6053 106.012C57.6599 99.5786 56.6219 92.5188 56.6219 85.1209C56.6219 77.8229 57.6599 70.8631 59.6053 64.5297C64.6973 47.9257 79.2828 36.745 97.1065 36.745C118.069 36.745 133.914 47.3879 140.231 66.5297C142.146 72.327 143.146 78.4729 143.146 84.8209C143.146 91.9709 142.062 98.8107 139.957 105.059L155.029 110.198C157.608 102.57 159.006 94.1309 159.006 85.1209C159.006 77.0699 157.751 69.3629 155.334 62.0649C147.439 38.1388 127.674 24.895 101.407 24.895L97.1065 24.895C70.6277 24.895 50.8622 41.5297 44.5288 66.5297C42.0913 76.1417 40.8037 86.4089 40.8037 97.1429C40.8037 107.977 42.0913 118.344 44.5288 128.056C51.6878 156.406 72.6393 175.105 97.4818 175.105C118.069 175.105 135.253 163.766 144.156 144.524L129.431 137.669C122.955 151.706 110.871 159.955 97.4818 159.955C79.8828 159.955 65.1768 147.243 59.9053 126.855C66.1913 133.743 74.8398 137.855 84.5828 137.855C96.0698 137.855 106.155 134.143 113.682 126.906C122.385 118.529 127.382 106.634 127.382 93.3087C127.382 92.4087 127.322 91.5087 127.202 90.6087C132.322 92.7687 137.122 95.3487 141.537 98.3487V88.9883Z"/>
+          </svg>
+          <span>Threads</span>
+        </a>
+        <a href="https://bsky.app/profile/cadeareforma.info" target="_blank" rel="noopener noreferrer" class="btn-rede btn-bluesky">
+          <svg class="icone-rede" viewBox="0 0 24 24">
+            <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566 0.944 1.561 1.266 0.902 1.865 0.139 2.558 -0.003 3.827 0.000 4.887c0.007 2.485 1.274 10.215 2.014 11.558 1.488 2.705 4.398 3.125 6.643 2.502-3.882 1.493-5.267 4.195-2.671 6.84 3.141 3.2 8.014-0.89 9.014-3.787 1 2.897 5.873 6.987 9.014 3.787 2.596-2.645 1.211-5.347-2.671-6.84 2.245 0.623 5.155 0.203 6.643-2.502 0.74-1.343 2.007-9.073 2.014-11.558 0.003-1.06-0.139-2.329-0.902-3.887-0.659-0.599-1.664-0.921-4.3 0.94-2.752 1.942-5.711 5.881-6.798 7.995z"/>
+          </svg>
+          <span>Bluesky</span>
+        </a>
       </div>
     </div>
 
