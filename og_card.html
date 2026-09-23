@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background-color: #0b0d10;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+    }
+
+    /* Container da foto real da fachada */
+    .foto-container {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 600px;
+      height: 630px;
+      overflow: hidden;
+    }
+
+    .foto-fachada {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+      filter: contrast(1.1) brightness(0.96);
+    }
+
+    /* Transição gradual de cores para o fundo preto #0b0d10 */
+    .gradiente-horizontal {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        rgba(11, 13, 16, 0.0) 0%,
+        rgba(11, 13, 16, 0.03) 25%,
+        rgba(11, 13, 16, 0.3) 48%,
+        rgba(11, 13, 16, 0.72) 70%,
+        rgba(11, 13, 16, 0.94) 86%,
+        #0b0d10 100%
+      );
+    }
+
+    /* Vinheta sutil */
+    .gradiente-vertical {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(11, 13, 16, 0.45) 0%,
+        transparent 18%,
+        transparent 82%,
+        rgba(11, 13, 16, 0.75) 100%
+      );
+    }
+
+    /* Painel direito com alinhamento refinado */
+    .painel-direita {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 680px;
+      height: 630px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 50px 40px 20px;
+      text-align: center;
+      z-index: 5;
+    }
+
+    /* Silhueta oficial do estádio com a cruz vermelha */
+    .silhouette {
+      width: 340px;
+      height: 95px;
+      margin-bottom: 22px;
+      filter: drop-shadow(0 0 12px rgba(217, 28, 28, 0.28));
+    }
+
+    /* Título idêntico ao site */
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.7rem;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      text-align: center;
+      text-transform: uppercase;
+      line-height: 1.22;
+      color: #f1f5f9;
+      margin-bottom: 14px;
+      max-width: 580px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+    }
+
+    h1 .destaque {
+      color: #e52222;
+      text-shadow: 0 0 25px rgba(229, 34, 34, 0.45);
+    }
+
+    /* Tagline oficial */
+    .tagline {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      letter-spacing: 0.35px;
+      color: #cbd5e1;
+      line-height: 1.45;
+      max-width: 530px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+    }
+
+    /* Badge do domínio */
+    .badge-dominio {
+      margin-top: 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: rgba(18, 22, 28, 0.9);
+      border: 1px solid #1e242d;
+      padding: 7px 18px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #94a3b8;
+      letter-spacing: 0.8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .cruz-badge {
+      color: #e52222;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    /* Borda superior vascaína */
+    .barra-topo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #e52222 0%, rgba(229, 34, 34, 0.4) 45%, transparent 100%);
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <div class="barra-topo"></div>
+
+  <!-- Foto da Fachada com fade gradual -->
+  <div class="foto-container">
+    <img src="fachada_ref.jpg" class="foto-fachada" alt="Fachada de São Januário" />
+    <div class="gradiente-horizontal"></div>
+    <div class="gradiente-vertical"></div>
+  </div>
+
+  <!-- Painel com silhueta, título e tagline -->
+  <div class="painel-direita">
+    <svg class="silhouette" viewBox="0 0 500 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 250 12 V 28" stroke="#e52222" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M 244 19 H 256" stroke="#e52222" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M 50 135 H 450" stroke="#71717a" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M 60 135 V 95 H 125 V 82 C 145 82 155 70 170 70 C 185 70 195 82 215 82 V 72 C 225 72 232 50 250 28 C 268 50 275 72 285 72 V 82 C 305 82 315 70 330 70 C 345 70 355 82 375 82 V 95 H 440 V 135" stroke="#cbd5e1" stroke-width="2.8" stroke-linejoin="round" fill="none"/>
+      <path d="M 65 95 V 72 M 120 82 V 65 M 380 82 V 65 M 435 95 V 72" stroke="#cbd5e1" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="65" cy="70" r="3.2" fill="#cbd5e1"/>
+      <circle cx="120" cy="63" r="3.2" fill="#cbd5e1"/>
+      <circle cx="380" cy="63" r="3.2" fill="#cbd5e1"/>
+      <circle cx="435" cy="70" r="3.2" fill="#cbd5e1"/>
+      <path d="M 215 92 H 285" stroke="#71717a" stroke-width="1.8"/>
+    </svg>
+
+    <h1>Cadê a reforma de <span class="destaque">São Januário</span>?</h1>
+    <div class="tagline">Monitor de notícias sobre o novo estádio do Vasco</div>
+
+    <div class="badge-dominio">
+      <span class="cruz-badge">✠</span>
+      <span>cadeareforma.info</span>
+    </div>
+  </div>
+</body>
+</html>
