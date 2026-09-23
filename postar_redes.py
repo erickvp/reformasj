@@ -79,24 +79,39 @@ def formatar_mensagem_noticia(veiculo, titulo, link):
         
     return f"{prefixo} {corpo} - {link}"
 
-def formatar_mensagem_contador(dias):
+DATA_PROJETO = datetime(2020, 8, 21).date()
+DATA_POTENCIAL = datetime(2024, 7, 3).date()
+
+def formatar_mensagem_contador(dias, hoje_bsb=None):
     """
     Regras de contagem de ausência de notícias:
-    - 1 dia: 'Ontem tivemos notícias sobre a reforma de São Januário.'
-    - 2 dias: 'Não temos notícias sobre a reforma de São Januário há dois dias.'
-    - 3 dias: 'Não temos notícias sobre a reforma de São Januário há três dias.'
-    - 4+ dias: 'Não temos notícias sobre a reforma de São Januário há {dias} dias.'
+    - 1 dia: 'Ontem tivemos notícias sobre a reforma de São Januário. O projeto de venda do potencial construtivo foi sancionado há XXX dias. O projeto da reforma do estádio foi apresentado há XXXX dias.'
+    - 2 dias: 'Não temos notícias sobre a reforma de São Januário há dois dias. O projeto de venda do potencial construtivo foi sancionado há XXX dias. O projeto da reforma do estádio foi apresentado há XXXX dias.'
+    - 3 dias: 'Não temos notícias sobre a reforma de São Januário há três dias. O projeto de venda do potencial construtivo foi sancionado há XXX dias. O projeto da reforma do estádio foi apresentado há XXXX dias.'
+    - 4+ dias: 'Não temos notícias sobre a reforma de São Januário há {dias} dias. O projeto de venda do potencial construtivo foi sancionado há XXX dias. O projeto da reforma do estádio foi apresentado há XXXX dias.'
     """
     if dias <= 0:
         return None
-    elif dias == 1:
-        return "Ontem tivemos notícias sobre a reforma de São Januário."
+
+    if hoje_bsb is None:
+        hoje_bsb = get_hoje_brasilia()
+
+    hoje_date = hoje_bsb.date()
+    dias_potencial = (hoje_date - DATA_POTENCIAL).days
+    dias_projeto = (hoje_date - DATA_PROJETO).days
+
+    frase_historica = f"O projeto de venda do potencial construtivo foi sancionado há {dias_potencial} dias. O projeto da reforma do estádio foi apresentado há {dias_projeto} dias."
+
+    if dias == 1:
+        primeira_frase = "Ontem tivemos notícias sobre a reforma de São Januário."
     elif dias == 2:
-        return "Não temos notícias sobre a reforma de São Januário há dois dias."
+        primeira_frase = "Não temos notícias sobre a reforma de São Januário há dois dias."
     elif dias == 3:
-        return "Não temos notícias sobre a reforma de São Januário há três dias."
+        primeira_frase = "Não temos notícias sobre a reforma de São Januário há três dias."
     else:
-        return f"Não temos notícias sobre a reforma de São Januário há {dias} dias."
+        primeira_frase = f"Não temos notícias sobre a reforma de São Januário há {dias} dias."
+
+    return f"{primeira_frase} {frase_historica}"
 
 # -------------------------------------------------------------
 # 4. Geração de Link Cards (Open Graph para Bluesky)
@@ -324,7 +339,7 @@ def modo_diario():
         salvar_estado(estado)
         return
 
-    msg = formatar_mensagem_contador(diff_dias)
+    msg = formatar_mensagem_contador(diff_dias, hoje_bsb)
     if msg:
         sucesso = publicar_em_todas(msg)
         if sucesso:
