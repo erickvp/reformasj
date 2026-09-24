@@ -410,14 +410,15 @@ def modo_diario():
 # 7. Ponto de Entrada Principal
 # -------------------------------------------------------------
 if __name__ == "__main__":
-    modo = sys.argv[1] if len(sys.argv) > 1 else "--modo-noticias"
+    # Junta todos os argumentos para suportar tanto "--modo diario"
+    # (dois tokens) quanto "--modo-diario" (um token)
+    args = " ".join(sys.argv[1:]).lower() if len(sys.argv) > 1 else "noticias"
 
-    if "--modo" in modo:
-        if "diario" in modo:
-            modo_diario()
-        else:
-            modo_noticias()
-    elif modo == "--teste":
+    print(f"[main] Argumentos recebidos: {sys.argv[1:]}")
+
+    if "diario" in args:
+        modo_diario()
+    elif "teste" in args:
         print("Executando teste com mensagem genérica...")
         msg_teste = "Teste de integração automática: Cadê a reforma de São Januário? Acompanhe as novidades."
         publicar_em_todas(msg_teste)
