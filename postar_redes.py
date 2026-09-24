@@ -170,9 +170,10 @@ def criar_embed_bluesky(client, url, titulo_padrao="", veiculo_padrao=""):
 def postar_x(texto):
     """Publica no X (Twitter) usando a API v2."""
     if not (X_API_KEY and X_API_SECRET and X_ACCESS_TOKEN and X_ACCESS_TOKEN_SECRET):
-        print("[X] Credenciais ausentes. Pulando publicação no X.")
+        print("[X] CREDENCIAIS AUSENTES. Verifique os secrets X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET.")
         return False
     try:
+        print(f"[X] Conectando com consumer_key={X_API_KEY[:6]}... / access_token={X_ACCESS_TOKEN[:6]}...")
         client = tweepy.Client(
             consumer_key=X_API_KEY,
             consumer_secret=X_API_SECRET,
@@ -180,10 +181,16 @@ def postar_x(texto):
             access_token_secret=X_ACCESS_TOKEN_SECRET
         )
         response = client.create_tweet(text=texto)
-        print(f"[X] Post publicado com sucesso! ID: {response.data['id']}")
+        print(f"[X] ✅ Post publicado com sucesso! ID: {response.data['id']}")
         return True
+    except tweepy.errors.Forbidden as e:
+        print(f"[X] ❌ ERRO 403 FORBIDDEN: O app NÃO tem permissão de escrita (Read+Write) no Developer Portal do X. Detalhes: {e}")
+        return False
+    except tweepy.errors.Unauthorized as e:
+        print(f"[X] ❌ ERRO 401 UNAUTHORIZED: Credenciais inválidas ou expiradas. Detalhes: {e}")
+        return False
     except Exception as e:
-        print(f"[X] Erro ao postar: {e}")
+        print(f"[X] ❌ Erro inesperado ao postar: {type(e).__name__}: {e}")
         return False
 
 def postar_threads(texto):
@@ -230,11 +237,13 @@ def postar_threads(texto):
 def postar_bluesky(texto, item_noticia=None):
     """Publica no Bluesky com suporte a Rich Card Embed para notícias."""
     if not (BSKY_HANDLE and BSKY_PASSWORD):
-        print("[Bluesky] Credenciais ausentes. Pulando publicação no Bluesky.")
+        print("[Bluesky] CREDENCIAIS AUSENTES. Verifique os secrets BSKY_HANDLE e BSKY_APP_PASSWORD.")
         return False
     try:
+        print(f"[Bluesky] Conectando como @{BSKY_HANDLE}...")
         client = Client()
         client.login(BSKY_HANDLE, BSKY_PASSWORD)
+        print("[Bluesky] Login bem-sucedido.")
         
         embed = None
         if item_noticia and "link" in item_noticia:
@@ -250,25 +259,37 @@ def postar_bluesky(texto, item_noticia=None):
         else:
             post = client.send_post(text=texto)
             
-        print(f"[Bluesky] Post publicado com sucesso! URI: {post.uri}")
+        print(f"[Bluesky] ✅ Post publicado com sucesso! URI: {post.uri}")
         return True
     except Exception as e:
-        print(f"[Bluesky] Erro ao postar: {e}")
+        print(f"[Bluesky] ❌ Erro ao postar: {type(e).__name__}: {e}")
         return False
 
 def publicar_em_todas(texto, item_noticia=None):
     """Dispara a postagem para as 3 redes simultaneamente."""
-    print(f"\n📢 DISPARANDO POST: \"{texto}\"")
+    print(f"\n📢 DISPARANDO POST ({len(texto)} chars):\n{texto}\n")
     r_x = postar_x(texto)
     r_threads = postar_threads(texto)
     r_bsky = postar_bluesky(texto, item_noticia)
-    return r_x or r_threads or r_bsky
+    if not (r_x or r_threads or r_bsky):
+        print("\n❌ FALHA TOTAL: Nenhuma rede social recebeu o post.")
+        return False
+    resultados = []
+    if r_x: resultados.append("X")
+    if r_threads: resultados.append("Threads")
+    if r_bsky: resultados.append("Bluesky")
+    print(f"\n✅ Post enviado com sucesso para: {', '.join(resultados)}")
+    return True
 
 # -------------------------------------------------------------
 # 6. Modos de Execução
 # -------------------------------------------------------------
 def modo_noticias():
-    """Verifica se há matérias novas no noticias.json que ainda não foram postadas."""
+    """
+    Verifica se há matérias novas no noticias.json que ainda não foram postadas.
+    IMPORTANTE: Só posta notícias cuja data seja HOJE (data de execução no fuso Brasília).
+    Isso evita que notícias antigas sejam postadas caso o estado_redes.json seja resetado.
+    """
     print("Modo: Verificando novas notícias para publicação...")
     if not os.path.exists(ARQUIVO_NOTICIAS):
         print(f"Arquivo {ARQUIVO_NOTICIAS} não encontrado.")
@@ -284,53 +305,85 @@ def modo_noticias():
     estado = carregar_estado()
     links_ja_postados = set(estado.get("links_postados", []))
 
-    # Identifica matérias que ainda não foram enviadas às redes
-    nao_postadas = [n for n in noticias if n.get("link") and n.get("link") not in links_ja_postados]
+    # Data de hoje em Brasília (UTC-3)
+    hoje_bsb = get_hoje_brasilia()
+    hoje_str = hoje_bsb.strftime("%d/%m/%Y")
+    print(f"Data de referência (Brasília): {hoje_str}")
+
+    # Filtro duplo:
+    # 1. Link ainda não postado
+    # 2. Data da notícia é HOJE — protege contra reposts de notícias antigas
+    nao_postadas = [
+        n for n in noticias
+        if n.get("link") and n.get("link") not in links_ja_postados
+        and n.get("data") == hoje_str
+    ]
 
     if not nao_postadas:
-        print("Nenhuma notícia nova para postar nas redes sociais.")
+        print(f"Nenhuma notícia nova de hoje ({hoje_str}) para postar nas redes sociais.")
+        # Marca todos os links existentes como já vistos para evitar reposts futuros
+        for n in noticias:
+            if n.get("link"):
+                links_ja_postados.add(n["link"])
+        estado["links_postados"] = list(links_ja_postados)
+        salvar_estado(estado)
         return
 
-    print(f"{len(nao_postadas)} notícia(s) nova(s) encontrada(s)!")
-    
-    # Processa da mais antiga para a mais nova entre as novidades
+    print(f"{len(nao_postadas)} notícia(s) nova(s) de hoje encontrada(s)!")
+
+    sucesso_algum = False
+    # Processa da mais antiga para a mais nova
     for item in reversed(nao_postadas):
         msg = formatar_mensagem_noticia(item.get("veiculo", "Imprensa"), item.get("titulo", ""), item.get("link", ""))
         sucesso = publicar_em_todas(msg, item)
         if sucesso:
             links_ja_postados.add(item["link"])
+            sucesso_algum = True
+        else:
+            print(f"[AVISO] Falha ao postar notícia: {item.get('titulo', '')[:60]}")
 
+    # Sempre marca os links como vistos, independente de sucesso de postagem
+    for n in noticias:
+        if n.get("link"):
+            links_ja_postados.add(n["link"])
     estado["links_postados"] = list(links_ja_postados)
     salvar_estado(estado)
     print("Estado atualizado com sucesso.")
+
+    if not sucesso_algum:
+        print("\n❌ NENHUMA NOTÍCIA FOI POSTADA COM SUCESSO EM NENHUMA REDE.")
+        sys.exit(1)
 
 def modo_diario():
     """Executado às 20h: Se hoje não houve notícia, publica a mensagem do contador."""
     print("Modo: Post diário das 20h (Contador de dias sem notícias)...")
     if not os.path.exists(ARQUIVO_NOTICIAS):
         print(f"Arquivo {ARQUIVO_NOTICIAS} não encontrado.")
-        return
+        sys.exit(1)
 
     with open(ARQUIVO_NOTICIAS, "r", encoding="utf-8") as f:
         noticias = json.load(f)
 
     if not isinstance(noticias, list) or len(noticias) == 0:
         print("Nenhuma notícia registrada no JSON.")
-        return
+        sys.exit(1)
 
     hoje_bsb = get_hoje_brasilia()
     hoje_str = hoje_bsb.strftime("%d/%m/%Y")
+    print(f"Data de referência (Brasília): {hoje_str}")
 
     estado = carregar_estado()
     if estado.get("ultimo_post_diario") == hoje_str:
         print(f"Post diário já foi realizado hoje ({hoje_str}). Encerrando.")
         return
 
-    # Notícia mais recente (topo da lista ordenada)
+    # Notícia mais recente (topo da lista, que é a mais recente)
     ultima_noticia = noticias[0]
-    data_ultima_dt = parse_data_br(ultima_noticia.get("data", ""))
+    data_ultima_str = ultima_noticia.get("data", "")
+    data_ultima_dt = parse_data_br(data_ultima_str)
 
     diff_dias = (hoje_bsb.date() - data_ultima_dt.date()).days
+    print(f"Última notícia registrada: {data_ultima_str} (há {diff_dias} dia(s))")
 
     # Se saiu notícia hoje, NÃO fazemos o post de ausência
     if diff_dias <= 0:
@@ -340,12 +393,16 @@ def modo_diario():
         return
 
     msg = formatar_mensagem_contador(diff_dias, hoje_bsb)
+    print(f"Mensagem a ser postada: {msg}")
     if msg:
         sucesso = publicar_em_todas(msg)
         if sucesso:
             estado["ultimo_post_diario"] = hoje_str
             salvar_estado(estado)
-            print("Post diário das 20h concluído e estado registrado.")
+            print("✅ Post diário das 20h concluído e estado registrado.")
+        else:
+            print("\n❌ FALHA: Post diário não foi publicado em nenhuma rede.")
+            sys.exit(1)
     else:
         print("Nenhuma mensagem formatada para publicação.")
 
