@@ -24,7 +24,7 @@ jobs:
           python-version: '3.11'
 
       - name: Instalar dependencias
-        run: pip install feedparser requests tweepy atproto beautifulsoup4
+        run: pip install feedparser requests tweepy atproto beautifulsoup4 googlenewsdecoder
 
       - name: Executar script coletor de noticias
         run: python atualizar_noticias.py

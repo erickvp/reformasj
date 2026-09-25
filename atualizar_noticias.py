@@ -83,6 +83,25 @@ def eh_reforma_sao_januario(titulo):
 
     return True
 
+def resolver_link_direto(url):
+    """
+    Decodifica o link intermediário do Google News RSS (news.google.com/rss/articles/...)
+    para a URL real e direta do portal de imprensa, permitindo cards de Open Graph corretos.
+    Retorna a própria url caso não seja do Google News ou em caso de falha.
+    """
+    if not url or "news.google.com" not in url:
+        return url
+    try:
+        import googlenewsdecoder
+        decoder_fn = getattr(googlenewsdecoder, "gnewsdecoder", None) or getattr(googlenewsdecoder, "new_decoderv1", None)
+        if decoder_fn:
+            res = decoder_fn(url)
+            if isinstance(res, dict) and res.get("status") and res.get("decoded_url"):
+                return res["decoded_url"]
+    except Exception as e:
+        print(f"Aviso ao decodificar link do Google News: {e}")
+    return url
+
 # 1. Carrega notícias existentes e expurga itens que venham a infringir os bloqueios
 noticias_atuais = []
 if os.path.exists(ARQUIVO_JSON):
@@ -151,14 +170,16 @@ for termo in TERMOS_BUSCA:
 
         titulo_chave = titulo.strip().lower()
         if titulo_chave not in titulos_salvos and link not in links_salvos:
+            link_final = resolver_link_direto(link)
             novas.append({
                 "data": data_str,
                 "veiculo": veiculo,
                 "titulo": titulo,
-                "link": link
+                "link": link_final
             })
             titulos_salvos.add(titulo_chave)
             links_salvos.add(link)
+            links_salvos.add(link_final)
 
 # 3. Consolidação e ordenação cronológica decrescente (mais recente para a mais antiga)
 total_noticias = novas + noticias_atuais
