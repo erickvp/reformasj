@@ -5,6 +5,15 @@ on:
     # Executa todos os dias às 23:00 UTC (20:00 Horário de Brasília)
     - cron: '0 23 * * *'
   workflow_dispatch:
+    inputs:
+      rede:
+        description: 'Rede social para postagem (todas ou threads)'
+        required: false
+        default: 'todas'
+        type: choice
+        options:
+          - todas
+          - threads
 
 permissions:
   contents: write
@@ -35,7 +44,12 @@ jobs:
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
           BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
           BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
-        run: python postar_redes.py --modo diario
+        run: |
+          if [ "${{ inputs.rede }}" = "threads" ]; then
+            python postar_redes.py --modo diario --threads
+          else
+            python postar_redes.py --modo diario
+          fi
 
       - name: Salvar estado_redes.json
         run: |

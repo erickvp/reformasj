@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 import json
 import urllib.parse
 from datetime import datetime, timezone, timedelta
@@ -218,7 +219,29 @@ def postar_threads(texto):
         creation_id = res_create.get("id")
 
         if not creation_id:
-            print(f"[Threads] Falha ao criar contêiner: {res_create}")
+            print(f"[Threads] ❌ Falha ao criar contêiner: {res_create}")
+            return False
+
+        # 1.1 Passo: Aguardar o contêiner ser processado pela Meta (status FINISHED)
+        status_url = f"https://graph.threads.net/v1.0/{creation_id}?fields=status,error_message&access_token={THREADS_TOKEN}"
+        pronto = False
+        for tentativa in range(1, 11):
+            time.sleep(2)
+            try:
+                res_status = requests.get(status_url, timeout=15).json()
+                status = res_status.get("status")
+                if status == "FINISHED":
+                    pronto = True
+                    break
+                elif status == "ERROR":
+                    print(f"[Threads] ❌ Erro no processamento do contêiner retornado pela Meta: {res_status}")
+                    return False
+                print(f"[Threads] Contêiner em processamento ({status}). Tentativa {tentativa}/10...")
+            except Exception as e_poll:
+                print(f"[Threads] Aviso na verificação de status ({tentativa}/10): {e_poll}")
+
+        if not pronto:
+            print("[Threads] ❌ Timeout: O contêiner não atingiu status FINISHED a tempo.")
             return False
 
         # 2º Passo: Publicar o contêiner
@@ -228,10 +251,16 @@ def postar_threads(texto):
             "access_token": THREADS_TOKEN
         }
         res_pub = requests.post(publish_url, data=pub_payload, timeout=15).json()
-        print(f"[Threads] Post publicado com sucesso! ID: {res_pub.get('id')}")
+        published_id = res_pub.get("id")
+
+        if not published_id:
+            print(f"[Threads] ❌ Falha ao publicar contêiner: {res_pub}")
+            return False
+
+        print(f"[Threads] ✅ Post publicado com sucesso! ID: {published_id}")
         return True
     except Exception as e:
-        print(f"[Threads] Erro ao postar: {e}")
+        print(f"[Threads] ❌ Erro inesperado ao postar: {type(e).__name__}: {e}")
         return False
 
 def postar_bluesky(texto, item_noticia=None):
@@ -354,7 +383,7 @@ def modo_noticias():
         print("\n❌ NENHUMA NOTÍCIA FOI POSTADA COM SUCESSO EM NENHUMA REDE.")
         sys.exit(1)
 
-def modo_diario():
+def modo_diario(somente_rede=None):
     """Executado às 20h: Se hoje não houve notícia, publica a mensagem do contador."""
     print("Modo: Post diário das 20h (Contador de dias sem notícias)...")
     if not os.path.exists(ARQUIVO_NOTICIAS):
@@ -373,7 +402,7 @@ def modo_diario():
     print(f"Data de referência (Brasília): {hoje_str}")
 
     estado = carregar_estado()
-    if estado.get("ultimo_post_diario") == hoje_str:
+    if not somente_rede and estado.get("ultimo_post_diario") == hoje_str:
         print(f"Post diário já foi realizado hoje ({hoje_str}). Encerrando.")
         return
 
@@ -395,13 +424,17 @@ def modo_diario():
     msg = formatar_mensagem_contador(diff_dias, hoje_bsb)
     print(f"Mensagem a ser postada: {msg}")
     if msg:
-        sucesso = publicar_em_todas(msg)
-        if sucesso:
-            estado["ultimo_post_diario"] = hoje_str
-            salvar_estado(estado)
-            print("✅ Post diário das 20h concluído e estado registrado.")
+        if somente_rede == "threads":
+            sucesso = postar_threads(msg)
         else:
-            print("\n❌ FALHA: Post diário não foi publicado em nenhuma rede.")
+            sucesso = publicar_em_todas(msg)
+        if sucesso:
+            if not somente_rede:
+                estado["ultimo_post_diario"] = hoje_str
+                salvar_estado(estado)
+            print(f"✅ Post diário das 20h concluído ({somente_rede or 'todas as redes'}).")
+        else:
+            print(f"\n❌ FALHA: Post diário não foi publicado ({somente_rede or 'todas as redes'}).")
             sys.exit(1)
     else:
         print("Nenhuma mensagem formatada para publicação.")
@@ -416,8 +449,10 @@ if __name__ == "__main__":
 
     print(f"[main] Argumentos recebidos: {sys.argv[1:]}")
 
+    somente_rede = "threads" if "threads" in args and "diario" in args else None
+
     if "diario" in args:
-        modo_diario()
+        modo_diario(somente_rede=somente_rede)
     elif "teste" in args:
         print("Executando teste com mensagem genérica...")
         msg_teste = "Teste de integração automática: Cadê a reforma de São Januário? Acompanhe as novidades."
