@@ -67,18 +67,35 @@ def salvar_estado(estado):
 # -------------------------------------------------------------
 def formatar_mensagem_noticia(veiculo, titulo, link):
     """
-    Formulação solicitada:
+    Formulação padrão para Threads e Bluesky:
     'Temos notícias sobre a reforma de São Januário! Nome do veículo - Título da matéria - Link da matéria'
-    Ajusta tamanho do título para caber confortavelmente no limite do X (280 caracteres).
+    Ajusta tamanho do título para caber no limite do Bluesky (300 caracteres).
     """
     prefixo = "Temos notícias sobre a reforma de São Januário!"
     corpo = f"{veiculo} - {titulo}"
     
-    # Limite seguro para corpo + link caber no Twitter/X
+    # Limite seguro para corpo + link caber no Bluesky (300 caracteres)
     if len(corpo) > 195:
         corpo = corpo[:192].rstrip() + "..."
         
     return f"{prefixo} {corpo} - {link}"
+
+def formatar_mensagem_noticia_x(veiculo, titulo):
+    """
+    Formulação específica para o X (Twitter) sem link direto para economizar créditos:
+    'Temos notícias sobre a reforma de São Januário! {veiculo} - {titulo}. Confira o link para a matéria no nosso site.'
+    Ajusta tamanho do corpo para caber confortavelmente no limite de 280 caracteres do X.
+    """
+    prefixo = "Temos notícias sobre a reforma de São Januário!"
+    sufixo = "Confira o link para a matéria no nosso site."
+    corpo = f"{veiculo} - {titulo}".rstrip(". ")
+    
+    # Limite seguro para corpo + prefixo + sufixo caber no X (280 chars)
+    # prefixo + espaco (48) + ponto e espaco (2) + sufixo (44) = 94 caracteres fixos
+    if len(corpo) > 180:
+        corpo = corpo[:177].rstrip() + "..."
+        
+    return f"{prefixo} {corpo}. {sufixo}"
 
 DATA_PROJETO = datetime(2020, 8, 21).date()
 DATA_POTENCIAL = datetime(2024, 7, 3).date()
@@ -294,10 +311,16 @@ def postar_bluesky(texto, item_noticia=None):
         print(f"[Bluesky] ❌ Erro ao postar: {type(e).__name__}: {e}")
         return False
 
-def publicar_em_todas(texto, item_noticia=None):
+def publicar_em_todas(texto, item_noticia=None, texto_x=None):
     """Dispara a postagem para as 3 redes simultaneamente."""
-    print(f"\n📢 DISPARANDO POST ({len(texto)} chars):\n{texto}\n")
-    r_x = postar_x(texto)
+    msg_x = texto_x if texto_x else texto
+    print(f"\n📢 DISPARANDO POST ({len(texto)} chars):\n{texto}")
+    if texto_x and texto_x != texto:
+        print(f"📢 TEXTO ESPECÍFICO PARA O X ({len(texto_x)} chars):\n{texto_x}\n")
+    else:
+        print()
+
+    r_x = postar_x(msg_x)
     r_threads = postar_threads(texto)
     r_bsky = postar_bluesky(texto, item_noticia)
     if not (r_x or r_threads or r_bsky):
@@ -363,13 +386,19 @@ def modo_noticias():
     sucesso_algum = False
     # Processa da mais antiga para a mais nova
     for item in reversed(nao_postadas):
-        msg = formatar_mensagem_noticia(item.get("veiculo", "Imprensa"), item.get("titulo", ""), item.get("link", ""))
-        sucesso = publicar_em_todas(msg, item)
+        veiculo = item.get("veiculo", "Imprensa")
+        titulo = item.get("titulo", "")
+        link = item.get("link", "")
+
+        msg = formatar_mensagem_noticia(veiculo, titulo, link)
+        msg_x = formatar_mensagem_noticia_x(veiculo, titulo)
+
+        sucesso = publicar_em_todas(msg, item, texto_x=msg_x)
         if sucesso:
             links_ja_postados.add(item["link"])
             sucesso_algum = True
         else:
-            print(f"[AVISO] Falha ao postar notícia: {item.get('titulo', '')[:60]}")
+            print(f"[AVISO] Falha ao postar notícia: {titulo[:60]}")
 
     # Sempre marca os links como vistos, independente de sucesso de postagem
     for n in noticias:

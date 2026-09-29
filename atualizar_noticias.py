@@ -1,5 +1,6 @@
 import os
 import json
+import time
 import urllib.parse
 from datetime import datetime, timezone, timedelta
 import feedparser
@@ -96,8 +97,10 @@ def resolver_link_direto(url):
         decoder_fn = getattr(googlenewsdecoder, "gnewsdecoder", None) or getattr(googlenewsdecoder, "new_decoderv1", None)
         if decoder_fn:
             res = decoder_fn(url)
-            if isinstance(res, dict) and res.get("status") and res.get("decoded_url"):
+            if isinstance(res, dict) and (res.get("status") or res.get("success")) and res.get("decoded_url"):
                 return res["decoded_url"]
+            elif isinstance(res, str) and res.startswith("http"):
+                return res
     except Exception as e:
         print(f"Aviso ao decodificar link do Google News: {e}")
     return url
@@ -117,6 +120,22 @@ if os.path.exists(ARQUIVO_JSON):
                 ]
     except Exception as e:
         print(f"Aviso ao ler JSON existente: {e}")
+
+# 1.1 Decodifica retroativamente notícias existentes que ainda possuem link do Google News
+legados = [n for n in noticias_atuais if "news.google.com" in n.get("link", "")]
+if legados:
+    print(f"Decoder: {len(legados)} notícia(s) existente(s) com link do Google News encontrada(s). Decodificando...")
+    convertidos = 0
+    for idx, item in enumerate(legados, 1):
+        link_orig = item.get("link", "")
+        link_dir = resolver_link_direto(link_orig)
+        if link_dir and link_dir != link_orig:
+            item["link"] = link_dir
+            convertidos += 1
+        if idx % 10 == 0 or idx == len(legados):
+            print(f"Progresso decoder: {idx}/{len(legados)} processados ({convertidos} convertidos)...")
+        time.sleep(0.2)
+    print(f"Decoder: Retroatividade concluída. Total de {convertidos} links convertidos para URLs diretas.")
 
 titulos_salvos = {item.get("titulo", "").strip().lower() for item in noticias_atuais}
 links_salvos = {item.get("link", "").strip() for item in noticias_atuais}
