@@ -58,6 +58,7 @@ jobs:
           git add estado_redes.json
           if ! git diff --staged --quiet; then
             git commit -m "Auto: registro do post diario atualizado [skip ci]"
+            git pull --rebase origin main
             git push
           else
             echo "Nenhuma alteracao de estado registrada."

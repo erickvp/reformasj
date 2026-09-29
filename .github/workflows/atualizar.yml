@@ -47,6 +47,7 @@ jobs:
           git add noticias.json estado_redes.json
           if ! git diff --staged --quiet; then
             git commit -m "Auto: noticias e redes atualizadas [skip ci]"
+            git pull --rebase origin main
             git push
           else
             echo "Nenhuma novidade encontrada hoje."
