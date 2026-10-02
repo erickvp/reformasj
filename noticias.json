@@ -31,6 +31,12 @@
   },
   {
     "data": "21/03/2026",
+    "veiculo": "Terra",
+    "titulo": "Reforma de São Januário: novo prefeito do Rio promete avanços",
+    "link": "https://www.terra.com.br/esportes/vasco/reforma-de-sao-januario-novo-prefeito-do-rio-promete-avancos,d0175e7631824339b3fd57e520c71f835k79svqq.html"
+  },
+  {
+    "data": "21/03/2026",
     "veiculo": "O GLOBO",
     "titulo": "Novo prefeito do Rio, Eduardo Cavaliere promete avançar com reforma de São Januário e garante terreno do Gasômetro ao Flamengo",
     "link": "https://oglobo.globo.com/esportes/futebol/vasco/noticia/2026/03/21/novo-prefeito-do-rio-eduardo-cavaliere-promete-avancar-com-reforma-de-sao-januario-e-garante-terreno-do-gasometro-ao-flamengo.ghtml"
@@ -792,6 +798,12 @@
     "link": "https://www.correiodamanha.com.br/esporte/2023/12/107672-reforma-de-sao-januario-sera-votada-so-em-2024.html"
   },
   {
+    "data": "15/11/2023",
+    "veiculo": "LANCE!",
+    "titulo": "Entenda como a reforma de São Januário, estádio do Vasco, pode receber investimento de patrocinador do Palmeiras",
+    "link": "https://www.lance.com.br/vasco/entenda-como-a-reforma-de-sao-januario-estadio-do-vasco-pode-receber-investimento-de-patrocinador-do-palmeiras.html"
+  },
+  {
     "data": "11/11/2023",
     "veiculo": "LANCE!",
     "titulo": "Reforma de São Januário: vereador vai às eleições do Vasco e fala sobre tramitação do PL na Câmara",
@@ -976,6 +988,12 @@
     "veiculo": "O Dia",
     "titulo": "Presidente do Vasco anuncia parceria para reforma de São Januário",
     "link": "https://odia.ig.com.br/esporte/vasco/2020/08/5975598-presidente-do-vasco-anuncia-parceria-para-reforma-de-sao-januario.html"
+  },
+  {
+    "data": "21/08/2020",
+    "veiculo": "LANCE!",
+    "titulo": "Alexandre Campello, presidente do Vasco, anuncia parceria para reforma de São Januário",
+    "link": "https://www.lance.com.br/vasco/alexandre-campello-presidente-anuncia-parceria-para-reforma-sao-januario.html"
   },
   {
     "data": "01/01/2020",
