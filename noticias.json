@@ -163,6 +163,12 @@
   },
   {
     "data": "27/11/2025",
+    "veiculo": "Vasco Notícias",
+    "titulo": "Reforma de São Januário: saiba data de início, capacidade e custo",
+    "link": "https://vasconoticias.com.br/noticias/reforma-de-sao-januario-saiba-data-de-inicio-capacidade-e-custo/"
+  },
+  {
+    "data": "27/11/2025",
     "veiculo": "DeFato.com",
     "titulo": "Entenda o panorama da reforma de São Januário, estádio do Vasco",
     "link": "https://defato.com/esportes/124401/entenda-o-panorama-da-reforma-de-so-janurio-estdio-do-vasco"
@@ -214,6 +220,12 @@
     "veiculo": "Terra",
     "titulo": "Reforma em São Januário avança e estádio recebe novo gramado de nível mundial; confira",
     "link": "https://www.terra.com.br/esportes/vasco/reforma-em-sao-januario-avanca-e-estadio-recebe-novo-gramado-de-nivel-mundial-confira,c3047db96c91b23af0e436c5f7614f57vnosoyz5.html"
+  },
+  {
+    "data": "12/11/2025",
+    "veiculo": "ge",
+    "titulo": "Vasco aguarda aquisição de terreno por empresa para fechar venda de potencial construtivo de São Januário",
+    "link": "https://ge.globo.com/futebol/times/vasco/noticia/2025/11/12/vasco-aguarda-aquisicao-de-terreno-por-empresa-para-fechar-venda-de-potencial-construtivo-de-sao-januario.ghtml"
   },
   {
     "data": "12/11/2025",
@@ -553,6 +565,12 @@
   },
   {
     "data": "13/03/2025",
+    "veiculo": "Diário do Rio",
+    "titulo": "Vasco recebe propostas para vender 25% do potencial construtivo de São Januário e pode arrecadar R$ 110 milhões",
+    "link": "https://diariodorio.com/vasco-recebe-propostas-para-vender-25-do-potencial-construtivo-de-sao-januario-e-pode-arrecadar-r-110-milhoes/"
+  },
+  {
+    "data": "13/03/2025",
     "veiculo": "LANCE!",
     "titulo": "Vasco recebe proposta para vender potencial construtivo de São Januário; veja valores",
     "link": "https://www.lance.com.br/vasco/vasco-recebe-proposta-para-vender-potencial-construtivo-de-sao-januario-veja-valores.html"
@@ -805,6 +823,12 @@
   },
   {
     "data": "12/06/2024",
+    "veiculo": "ge",
+    "titulo": "Moradores da Barreira do Vasco defendem reforma de São Januário: \"A favela precisa\"",
+    "link": "https://ge.globo.com/futebol/times/vasco/noticia/2024/06/12/moradores-da-barreira-do-vasco-saem-em-defesa-da-reforma-de-sao-januario-a-favela-precisa.ghtml"
+  },
+  {
+    "data": "12/06/2024",
     "veiculo": "LANCE!",
     "titulo": "São Januário: O que falta para a reforma do estádio do Vasco sair do papel?",
     "link": "https://www.lance.com.br/vasco/sao-januario-o-que-falta-para-a-reforma-do-estadio-do-vasco-sair-do-papel.html"
@@ -832,6 +856,12 @@
     "veiculo": "Rádio Itatiaia",
     "titulo": "Projeto do Vasco para reforma de São Januário dá novo passo; entenda",
     "link": "https://www.itatiaia.com.br/esportes/futebol/futebol-nacional/futebol-carioca/vasco/projeto-do-vasco-para-reforma-de-sao-januario-da-novo-passo-entenda/"
+  },
+  {
+    "data": "01/06/2024",
+    "veiculo": "ge",
+    "titulo": "Reforma de São Januário: entenda o motivo de junho ser importante para o estádio do Vasco",
+    "link": "https://ge.globo.com/futebol/times/vasco/noticia/2024/06/01/reforma-de-sao-januario-entenda-o-motivo-de-junho-ser-importante-para-o-estadio-do-vasco.ghtml"
   },
   {
     "data": "28/05/2024",
@@ -1062,10 +1092,28 @@
     "link": "https://ge.globo.com/futebol/times/vasco/noticia/2023/09/30/vasco-trabalha-em-plano-para-reformas-em-sao-januario-apos-o-brasileiro.ghtml"
   },
   {
+    "data": "13/09/2023",
+    "veiculo": "ge",
+    "titulo": "Potencial construtivo de São Januário: prefeito do Rio revela data para finalizar projeto do Vasco",
+    "link": "https://ge.globo.com/futebol/times/vasco/noticia/2023/09/13/potencial-construtivo-de-sao-januario-prefeito-do-rio-revela-data-para-finalizar-projeto-do-vasco.ghtml"
+  },
+  {
+    "data": "10/09/2023",
+    "veiculo": "ge",
+    "titulo": "Potencial construtivo de São Januário: Vasco aguarda projeto de lei, mas já tem acordo para venda",
+    "link": "https://ge.globo.com/futebol/times/vasco/noticia/2023/09/10/potencial-construtivo-de-sao-januario-vasco-aguarda-projeto-de-lei-mas-ja-tem-acordo-para-venda.ghtml"
+  },
+  {
     "data": "09/05/2023",
     "veiculo": "LANCE!",
     "titulo": "Potencial construtivo: entenda o plano do Vasco para reformar São Januário",
     "link": "https://www.lance.com.br/vasco/potencial-construtivo-entenda-o-plano-do-vasco-para-reformar-sao-januario.html"
+  },
+  {
+    "data": "05/05/2023",
+    "veiculo": "ge",
+    "titulo": "Entenda o que é potencial construtivo e como o Vasco busca recursos para reforma de São Januário",
+    "link": "https://ge.globo.com/futebol/times/vasco/noticia/2023/05/05/entenda-o-que-e-potencial-construtivo-e-como-o-vasco-busca-recursos-para-reforma-de-sao-januario.ghtml"
   },
   {
     "data": "03/05/2023",
@@ -1132,6 +1180,12 @@
     "veiculo": "Terra",
     "titulo": "Vasco inicia reforma em São Januário; arquibancadas e fachada serão revitalizadas",
     "link": "https://www.terra.com.br/esportes/vasco/vasco-inicia-reforma-em-sao-januario-arquibancadas-e-fachada-serao-revitalizadas,730f2e602719723976bc4610e31efc4729xhhe17.html"
+  },
+  {
+    "data": "19/01/2021",
+    "veiculo": "Lance!",
+    "titulo": "Jorge Salgado anuncia Pedro Seixas como VP responsável pelas obras dos CTs do Vasco e de São Januário",
+    "link": "https://www.lance.com.br/vasco/jorge-salgado-anuncia-pedro-seixas-como-responsavel-pelas-obras-dos-cts-sao-januario.html"
   },
   {
     "data": "28/08/2020",
