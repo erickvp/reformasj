@@ -529,6 +529,12 @@
   },
   {
     "data": "16/05/2025",
+    "veiculo": "Vascaino.net",
+    "titulo": "Novo São Januário vem aí! Vasco INOVA; confira tudo sobre a modernização do estádio",
+    "link": "https://vascaino.net/noticias-do-vasco/reforma-de-sao-januario-vasco-inova/"
+  },
+  {
+    "data": "16/05/2025",
     "veiculo": "Lance!",
     "titulo": "Sérgio Dias detalha planos da reforma de São Januário, estádio do Vasco: 'Dialoga com passado'",
     "link": "https://www.lance.com.br/vasco/sergio-dias-detalha-planos-da-reforma-de-sao-januario-estadio-do-vasco-dialoga-com-passado.html"
@@ -556,6 +562,12 @@
     "veiculo": "O GLOBO",
     "titulo": "São Januário: antes de reforma, estádio do Vasco ganhará novas ‘saideiras’",
     "link": "https://oglobo.globo.com/esportes/futebol/vasco/noticia/2025/03/30/sao-januario-antes-de-reforma-estadio-do-vasco-ganhara-novas-saideiras.ghtml"
+  },
+  {
+    "data": "26/03/2025",
+    "veiculo": "LANCE!",
+    "titulo": "Reforma de São Januário: entenda em que etapa está a modernização do estádio do Vasco",
+    "link": "https://www.lance.com.br/vasco/reforma-de-sao-januario-entenda-em-que-etapa-esta-a-modernizacao-do-estadio-do-vasco.html"
   },
   {
     "data": "25/03/2025",
@@ -910,6 +922,18 @@
     "veiculo": "LANCE!",
     "titulo": "O que é potencial construtivo? Entenda como funciona a lei para reformar São Januário, estádio do Vasco",
     "link": "https://www.lance.com.br/vasco/o-que-potencial-construtivo-entenda-como-funciona-a-lei-para-reformar-sao-januario-estadio-do-vasco.html"
+  },
+  {
+    "data": "12/03/2024",
+    "veiculo": "ge",
+    "titulo": "Reforma de São Januário: vereadores e representantes do Vasco se reunirão na terça; veja próximos passos",
+    "link": "https://ge.globo.com/futebol/times/vasco/noticia/2024/03/12/reforma-de-sao-januario-vereadores-e-representantes-do-vasco-se-reunirao-na-terca-veja-proximos-passos.ghtml"
+  },
+  {
+    "data": "06/03/2024",
+    "veiculo": "LANCE!",
+    "titulo": "Reforma de São Januário: Eduardo Paes garante que PL do estádio do Vasco vai ser votado em 30 a 45 dias",
+    "link": "https://www.lance.com.br/vasco/reforma-de-sao-januario-eduardo-paes-garante-que-pl-do-estadio-do-vasco-vai-ser-votado-em-30-a-45-dias.html"
   },
   {
     "data": "21/02/2024",
@@ -1276,6 +1300,12 @@
     "veiculo": "Extra online",
     "titulo": "Vasco inicia obras em São Januário para reverter interdição de estádio",
     "link": "https://extra.globo.com/esporte/vasco/vasco-inicia-obras-em-sao-januario-para-reverter-interdicao-de-estadio-21644594.html"
+  },
+  {
+    "data": "28/09/2013",
+    "veiculo": "UOL",
+    "titulo": "Vasco vê São Januário 'antigo' e sofre com obras urgentes por adequação",
+    "link": "https://www.uol.com.br/esporte/futebol/campeonatos/brasileiro/serie-a/ultimas-noticias/2013/09/28/vasco-ve-sao-januario-antigo-e-sofre-com-obras-urgentes-por-adequacao.htm"
   },
   {
     "data": "27/10/2012",
