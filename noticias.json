@@ -7,6 +7,12 @@
   },
   {
     "data": "15/05/2026",
+    "veiculo": "Papo na Colina",
+    "titulo": "Vasco enfrenta entraves na venda de potencial construtivo de São Januário",
+    "link": "https://paponacolina.com.br/vasco-entraves-venda-de-potencial-construtivo/"
+  },
+  {
+    "data": "15/05/2026",
     "veiculo": "Terra",
     "titulo": "Vasco segue no aguardo por reformas em São Januário e prazo aumenta",
     "link": "https://www.terra.com.br/esportes/vasco/vasco-segue-no-aguardo-por-reformas-em-sao-januario-e-prazo-aumenta,bbe98782eafbfc9ca5c427718550fa22x3d8c428.html"
@@ -121,6 +127,12 @@
   },
   {
     "data": "09/01/2026",
+    "veiculo": "Papo na Colina",
+    "titulo": "Reforma de São Januário: venda do potencial construtivo adia início das obras",
+    "link": "https://paponacolina.com.br/reforma-de-sao-januario-venda-do-potencial/"
+  },
+  {
+    "data": "09/01/2026",
     "veiculo": "LANCE!",
     "titulo": "ALAN SALDIVIA E NOVIDADES SOBRE A REFORMA DE SÃO JANUÁRIO | MINUTO DO VASCO",
     "link": "https://www.lance.com.br/videos/alan-saldivia-e-novidades-sobre-a-reforma-de-sao-januario-minuto-do-vasco"
@@ -148,6 +160,12 @@
     "veiculo": "sportingnews.com",
     "titulo": "Vasco x Mirassol é o último jogo em São Januário antes de fechamento para reforma?",
     "link": "https://www.sportingnews.com/br/futebol/noticias/vasco-mirassol-ultimo-jogo-sao-januario-antes-fechamento-reforma/db8361e7645859144e9d0603"
+  },
+  {
+    "data": "27/11/2025",
+    "veiculo": "Vasco Notícias",
+    "titulo": "Reforma de São Januário: saiba data de início, capacidade e custo",
+    "link": "https://vasconoticias.com.br/noticias/reforma-de-sao-januario-saiba-data-de-inicio-capacidade-e-custo/"
   },
   {
     "data": "27/11/2025",
@@ -184,6 +202,12 @@
     "veiculo": "ge",
     "titulo": "Conselho da reforma de São Januário debate possibilidade de esticar linha do VLT até o estádio do Vasco",
     "link": "https://ge.globo.com/futebol/times/vasco/noticia/2025/11/25/conselho-da-reforma-de-sao-januario-debate-possibilidade-de-esticar-linha-do-vlt-ate-o-estadio-do-vasco.ghtml"
+  },
+  {
+    "data": "20/11/2025",
+    "veiculo": "Vasco Notícias",
+    "titulo": "Novo São Januário tem capacidade prevista revelada; veja",
+    "link": "https://vasconoticias.com.br/noticias/novo-sao-januario-tem-capacidade-prevista-revelada-veja/"
   },
   {
     "data": "19/11/2025",
@@ -595,6 +619,12 @@
   },
   {
     "data": "13/12/2024",
+    "veiculo": "Terra",
+    "titulo": "Lei do potencial construtivo de São Januário é publicado pelo Diário Oficial da Prefeitura",
+    "link": "https://www.terra.com.br/esportes/vasco/lei-do-potencial-construtivo-de-sao-januario-e-publicado-pelo-diario-oficial-da-prefeitura,d56580e97fa3d1861987e83a4f32ac9aeln5ijxt.html"
+  },
+  {
+    "data": "13/12/2024",
     "veiculo": "ge",
     "titulo": "Reforma de São Januário: Prefeitura regulamenta lei de potencial construtivo do estádio",
     "link": "https://ge.globo.com/futebol/times/vasco/noticia/2024/12/13/reforma-de-sao-januario-prefeitura-regulamenta-lei-de-potencial-construtivo-do-estadio.ghtml"
@@ -610,6 +640,12 @@
     "veiculo": "portalgiro.com",
     "titulo": "Vasco adia início das obras de São Januário",
     "link": "https://www.portalgiro.com/noticia/9556/petropolis/giro-esporte/vasco-adia-inicio-das-obras-de-sao-januario.html"
+  },
+  {
+    "data": "14/11/2024",
+    "veiculo": "LANCE!",
+    "titulo": "Dirigentes do Vasco admitem atraso na reforma de São Januário e detalham próximos passos",
+    "link": "https://www.lance.com.br/vasco/dirigentes-do-vasco-admitem-atraso-na-reforma-de-sao-januario-e-detalham-proximos-passos.html"
   },
   {
     "data": "14/11/2024",
@@ -646,6 +682,12 @@
     "veiculo": "ge",
     "titulo": "São Januário: lei do potencial construtivo do estádio do Vasco ainda não foi regulamentada; entenda atraso",
     "link": "https://ge.globo.com/futebol/times/vasco/noticia/2024/10/30/sao-januario-lei-do-potencial-construtivo-do-estadio-do-vasco-ainda-nao-foi-regulamentada-entenda-atraso.ghtml"
+  },
+  {
+    "data": "23/10/2024",
+    "veiculo": "ge",
+    "titulo": "Venda da SAF e reforma de São Januário: os desafios de Pedrinho no Vasco até o fim do ano",
+    "link": "https://ge.globo.com/futebol/times/vasco/noticia/2024/10/23/venda-da-saf-e-reforma-de-sao-januario-os-desafios-de-pedrinho-no-vasco-ate-o-fim-do-ano.ghtml"
   },
   {
     "data": "15/10/2024",
@@ -948,10 +990,22 @@
     "link": "https://www.correiodamanha.com.br/esporte/2023/12/107672-reforma-de-sao-januario-sera-votada-so-em-2024.html"
   },
   {
+    "data": "21/11/2023",
+    "veiculo": "Vasco Notícias",
+    "titulo": "Novo São Januário: veja imagens inéditas do projeto",
+    "link": "https://vasconoticias.com.br/web-stories/novo-sao-januario-veja-imagens-ineditas-do-projeto/"
+  },
+  {
     "data": "18/11/2023",
     "veiculo": "Consultor Jurídico",
     "titulo": "Passo importante para a reforma de São Januário",
     "link": "https://www.conjur.com.br/2023-nov-18/passo-importante-para-a-reforma-de-sao-januario/"
+  },
+  {
+    "data": "15/11/2023",
+    "veiculo": "ge",
+    "titulo": "Reforma de São Januário: veja o projeto adotado por Pedrinho durante a campanha",
+    "link": "https://ge.globo.com/futebol/times/vasco/noticia/2023/11/15/reforma-de-sao-januario-veja-qual-o-projeto-preferido-de-pedrinho-para-o-estadio-do-vasco.ghtml"
   },
   {
     "data": "15/11/2023",
@@ -1141,6 +1195,12 @@
   },
   {
     "data": "05/05/2023",
+    "veiculo": "CNN Brasil",
+    "titulo": "Vasco quer investir até R$ 500 milhões em reforma de São Januário para receber 43 mil pessoas",
+    "link": "https://www.cnnbrasil.com.br/esportes/futebol/vasco-da-gama/vasco-quer-investir-ate-r-500-milhoes-em-reforma-de-sao-januario-para-receber-43-mil-pessoas/"
+  },
+  {
+    "data": "05/05/2023",
     "veiculo": "ge",
     "titulo": "Entenda o que é potencial construtivo e como o Vasco busca recursos para reforma de São Januário",
     "link": "https://ge.globo.com/futebol/times/vasco/noticia/2023/05/05/entenda-o-que-e-potencial-construtivo-e-como-o-vasco-busca-recursos-para-reforma-de-sao-januario.ghtml"
@@ -1170,6 +1230,18 @@
     "link": "https://oglobo.globo.com/blogs/panorama-esportivo/post/2022/08/o-que-o-vasco-pretende-fazer-na-reforma-de-sao-januario.ghtml"
   },
   {
+    "data": "02/08/2022",
+    "veiculo": "ge",
+    "titulo": "Vasco busca acordo com a Prefeitura e visa reforma de São Januário; veja fotos do projeto",
+    "link": "https://ge.globo.com/futebol/times/vasco/noticia/2022/08/02/vasco-busca-acordo-com-a-prefeitura-e-visa-reforma-de-sao-januario-veja-fotos-do-projeto.ghtml"
+  },
+  {
+    "data": "02/08/2022",
+    "veiculo": "Vasco Notícias",
+    "titulo": "Osório afirma que ‘novo São Januário’ manterá ligação com a Barreira do Vasco",
+    "link": "https://vasconoticias.com.br/noticias/osorio-afirma-que-novo-sao-januario-mantera-ligacao-com-a-barreira-do-vasco/"
+  },
+  {
     "data": "23/06/2022",
     "veiculo": "Site Oficial",
     "titulo": "Sala de Imprensa de São Januário entra em reforma - Vasco da Gama",
@@ -1186,6 +1258,12 @@
     "veiculo": "LANCE!",
     "titulo": "Jorge Salgado prega retorno do Vasco ao Maracanã e a construção de um novo São Januário: 'É minha meta'",
     "link": "https://www.lance.com.br/vasco/jorge-salgado-prega-retorno-do-vasco-ao-maracana-e-a-construcao-de-um-novo-sao-januario-e-minha-meta.html"
+  },
+  {
+    "data": "21/02/2022",
+    "veiculo": "O GLOBO",
+    "titulo": "Reforma, aluguel, ativo? Entenda o que acontecerá com São Januário na futura SAF do Vasco",
+    "link": "https://oglobo.globo.com/esportes/futebol/reforma-aluguel-ativo-entenda-que-acontecera-com-sao-januario-na-futura-saf-do-vasco-25403620"
   },
   {
     "data": "15/02/2022",
@@ -1210,6 +1288,12 @@
     "veiculo": "Terra",
     "titulo": "Vasco inicia reforma em São Januário; arquibancadas e fachada serão revitalizadas",
     "link": "https://www.terra.com.br/esportes/vasco/vasco-inicia-reforma-em-sao-januario-arquibancadas-e-fachada-serao-revitalizadas,730f2e602719723976bc4610e31efc4729xhhe17.html"
+  },
+  {
+    "data": "16/07/2021",
+    "veiculo": "ge",
+    "titulo": "Parceira deixa de ser investidora na reforma de São Januário; Vasco admite que obra não inicia em 2021",
+    "link": "https://ge.globo.com/futebol/times/vasco/noticia/parceira-deixa-de-ser-investidora-na-reforma-de-sao-januario-vasco-admite-que-obra-nao-inicia-em-2021.ghtml"
   },
   {
     "data": "19/01/2021",
@@ -1306,6 +1390,12 @@
     "veiculo": "Extra online",
     "titulo": "Vasco inicia obras em São Januário para reverter interdição de estádio",
     "link": "https://extra.globo.com/esporte/vasco/vasco-inicia-obras-em-sao-januario-para-reverter-interdicao-de-estadio-21644594.html"
+  },
+  {
+    "data": "24/02/2015",
+    "veiculo": "O GLOBO",
+    "titulo": "Vasco lança campanha de financiamento coletivo para reformar São Januário",
+    "link": "https://oglobo.globo.com/esportes/vasco-lanca-campanha-de-financiamento-coletivo-para-reformar-sao-januario-15423937"
   },
   {
     "data": "28/09/2013",
