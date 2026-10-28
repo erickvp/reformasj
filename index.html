@@ -583,17 +583,26 @@
         return;
       }
 
+      // Filtra itens pontuais e operacionais de manutenção caso venham de cache antigo
+      const termosExcluir = ["gramado", "vestiário", "vestiario", "sala de imprensa", "interdição", "interdicao", "desinterdição", "desinterdicao"];
+      const noticiasValidas = noticias.filter(n => {
+        const tit = (n.titulo || '').toLowerCase();
+        return !termosExcluir.some(t => tit.includes(t));
+      });
+
+      const lista = noticiasValidas.length > 0 ? noticiasValidas : noticias;
+
       // Ordena rigorosamente da mais recente para a mais antiga
-      noticias.sort((a, b) => {
+      lista.sort((a, b) => {
         const dA = parseDataBR(a.data) || new Date(0);
         const dB = parseDataBR(b.data) || new Date(0);
         return dB - dA;
       });
 
-      badgeTotal.textContent = `${noticias.length} notícia${noticias.length > 1 ? 's' : ''}`;
+      badgeTotal.textContent = `${lista.length} notícia${lista.length > 1 ? 's' : ''}`;
 
       // Calcula dias desde a última notícia (índice 0, topo da lista)
-      const dUltima = parseDataBR(noticias[0].data);
+      const dUltima = parseDataBR(lista[0].data);
       if (dUltima) {
         const hoje = getHojeBrasilia();
         const diffDias = Math.max(0, Math.floor((hoje - dUltima) / (1000 * 60 * 60 * 24)));
@@ -603,7 +612,7 @@
       }
 
       // Renderiza os artigos
-      feed.innerHTML = noticias.map(n => {
+      feed.innerHTML = lista.map(n => {
         const veiculo = n.veiculo || 'Imprensa';
         return `
           <article class="item-noticia">

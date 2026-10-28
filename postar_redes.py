@@ -339,8 +339,9 @@ def publicar_em_todas(texto, item_noticia=None, texto_x=None):
 def modo_noticias():
     """
     Verifica se há matérias novas no noticias.json que ainda não foram postadas.
-    IMPORTANTE: Só posta notícias cuja data seja HOJE (data de execução no fuso Brasília).
-    Isso evita que notícias antigas sejam postadas caso o estado_redes.json seja resetado.
+    Utiliza janela de tolerância de até 3 dias para garantir que matérias publicadas
+    à noite ou em fins de semana sejam postadas no próximo ciclo sem perda.
+    Protege contra reposts de matérias antigas marcando itens com mais de 3 dias como expirados.
     """
     print("Modo: Verificando novas notícias para publicação...")
     if not os.path.exists(ARQUIVO_NOTICIAS):
@@ -359,29 +360,40 @@ def modo_noticias():
 
     # Data de hoje em Brasília (UTC-3)
     hoje_bsb = get_hoje_brasilia()
+    hoje_date = hoje_bsb.date()
     hoje_str = hoje_bsb.strftime("%d/%m/%Y")
     print(f"Data de referência (Brasília): {hoje_str}")
 
-    # Filtro duplo:
-    # 1. Link ainda não postado
-    # 2. Data da notícia é HOJE — protege contra reposts de notícias antigas
-    nao_postadas = [
-        n for n in noticias
-        if n.get("link") and n.get("link") not in links_ja_postados
-        and n.get("data") == hoje_str
-    ]
+    nao_postadas = []
+    links_expirados = []
 
-    if not nao_postadas:
-        print(f"Nenhuma notícia nova de hoje ({hoje_str}) para postar nas redes sociais.")
-        # Marca todos os links existentes como já vistos para evitar reposts futuros
-        for n in noticias:
-            if n.get("link"):
-                links_ja_postados.add(n["link"])
+    for n in noticias:
+        link = n.get("link")
+        if not link or link in links_ja_postados:
+            continue
+
+        data_str = n.get("data", "")
+        dt_noticia = parse_data_br(data_str)
+        diff_dias = (hoje_date - dt_noticia.date()).days
+
+        # Janela de publicação: matérias com até 3 dias de publicação
+        if 0 <= diff_dias <= 3:
+            nao_postadas.append(n)
+        elif diff_dias > 3:
+            links_expirados.append(link)
+
+    # Registra links expirados como vistos para manter estado limpo sem reposts indevidos
+    if links_expirados:
+        for l in links_expirados:
+            links_ja_postados.add(l)
         estado["links_postados"] = list(links_ja_postados)
         salvar_estado(estado)
+
+    if not nao_postadas:
+        print(f"Nenhuma notícia recente (últimos 3 dias) pendente de postagem nas redes sociais.")
         return
 
-    print(f"{len(nao_postadas)} notícia(s) nova(s) de hoje encontrada(s)!")
+    print(f"{len(nao_postadas)} notícia(s) recente(s) pendente(s) encontrada(s)!")
 
     sucesso_algum = False
     # Processa da mais antiga para a mais nova
@@ -396,17 +408,13 @@ def modo_noticias():
         sucesso = publicar_em_todas(msg, item, texto_x=msg_x)
         if sucesso:
             links_ja_postados.add(item["link"])
+            estado["links_postados"] = list(links_ja_postados)
+            salvar_estado(estado)
             sucesso_algum = True
         else:
             print(f"[AVISO] Falha ao postar notícia: {titulo[:60]}")
 
-    # Sempre marca os links como vistos, independente de sucesso de postagem
-    for n in noticias:
-        if n.get("link"):
-            links_ja_postados.add(n["link"])
-    estado["links_postados"] = list(links_ja_postados)
-    salvar_estado(estado)
-    print("Estado atualizado com sucesso.")
+    print("Processamento de notícias concluído.")
 
     if not sucesso_algum:
         print("\n❌ NENHUMA NOTÍCIA FOI POSTADA COM SUCESSO EM NENHUMA REDE.")
@@ -435,13 +443,22 @@ def modo_diario(somente_rede=None):
         print(f"Post diário já foi realizado hoje ({hoje_str}). Encerrando.")
         return
 
-    # Notícia mais recente (topo da lista, que é a mais recente)
-    ultima_noticia = noticias[0]
+    # Notícia mais recente válida sobre a reforma geral (ignora pontuais/reparos se houver)
+    termos_pontuais = ["gramado", "vestiário", "vestiario", "sala de imprensa", "interdição", "interdicao", "desinterdição", "desinterdicao"]
+    noticias_validas = [
+        n for n in noticias 
+        if n.get("data") and not any(p in n.get("titulo", "").lower() for p in termos_pontuais)
+    ]
+    if not noticias_validas:
+        print("Nenhuma notícia válida sobre a reforma encontrada no JSON.")
+        sys.exit(1)
+
+    ultima_noticia = noticias_validas[0]
     data_ultima_str = ultima_noticia.get("data", "")
     data_ultima_dt = parse_data_br(data_ultima_str)
 
     diff_dias = (hoje_bsb.date() - data_ultima_dt.date()).days
-    print(f"Última notícia registrada: {data_ultima_str} (há {diff_dias} dia(s))")
+    print(f"Última notícia registrada sobre a reforma geral: {data_ultima_str} (há {diff_dias} dia(s))")
 
     # Se saiu notícia hoje, NÃO fazemos o post de ausência
     if diff_dias <= 0:

@@ -53,16 +53,55 @@ def parse_data(str_data):
     except Exception:
         return datetime(1970, 1, 1)
 
-def eh_reforma_sao_januario(titulo):
-    """Valida se o conteúdo do título realmente trata da reforma/modernização do estádio."""
-    t = titulo.lower()
+# Termos de obras pontuais, operacionais e manutenções rotineiras (NÃO são a reforma geral)
+TERMOS_EXCLUSAO_PONTUAL = [
+    "gramado", "troca de gramado", "trocar o gramado", "reforma do gramado",
+    "novo gramado", "vestiário", "vestiario", "vestiários", "vestiarios",
+    "sala de imprensa", "iluminação", "iluminacao", "refletores",
+    "pontual", "pontuais", "reparo", "reparos", "manutenção", "manutencao",
+    "vistoria", "laudo", "bepe", "bombeiros",
+    "interdição", "interdicao", "desinterdição", "desinterdicao"
+]
+
+# Termos que indicam conteúdo esportivo de jogo regular, sem relação com obras estruturais
+TERMOS_IGNORAR = [
+    "escalação", "escalacao", "onde assistir", "transmissão", 
+    "transmissao", "palpites", "arbitragem", "árbitro", "ingressos", "bilheteria"
+]
+
+def eh_reforma_sao_januario(titulo, descricao=""):
+    """
+    Valida se o conteúdo do título e resumo realmente trata da reforma/modernização estrutural do estádio
+    (megaprojeto do Novo São Januário, potencial construtivo, ampliação geral),
+    descartando intervenções pontuais, trocas de gramado e manutenções de rotina.
+    """
+    t = f"{titulo} {descricao}".lower()
     
     # 1. Deve citar São Januário ou a Colina Histórica
     tem_sj = any(s in t for s in ["januário", "januario", "colina histórica", "colina historica"])
     if not tem_sj:
         return False
-        
-    # 2. Deve conter termos explícitos de obra/reforma (NÃO inclui 'estádio' sozinho para evitar notícias de jogos)
+
+    # 2. Rejeição imediata se for reforma pontual, manutenção ou gramado
+    if any(p in t for p in TERMOS_EXCLUSAO_PONTUAL):
+        return False
+
+    # 3. Rejeição imediata se for assunto de pré-jogo/escalação/ingressos
+    if any(i in t for i in TERMOS_IGNORAR):
+        return False
+
+    # 4. Se citar estádios terceiros (Nilton Santos, Maracanã), NÃO basta 'obras' genérico:
+    # deve citar expressamente a reforma geral / novo estádio / potencial construtivo
+    estadios_terceiros = ["nilton santos", "maracanã", "maracana", "engenhão", "engenhao"]
+    if any(e in t for e in estadios_terceiros):
+        termos_estruturais = [
+            "novo são januário", "novo sao januario", "potencial construtivo", 
+            "reforma geral", "modernização", "modernizacao", "ampliação", "ampliacao"
+        ]
+        if not any(k in t for k in termos_estruturais):
+            return False
+
+    # 5. Deve conter termos explícitos de obra/reforma geral
     palavras_reforma = [
         "reforma", "reformas", "obra", "obras", "potencial construtivo", 
         "ampliação", "ampliacao", "modernização", "modernizacao", 
@@ -72,14 +111,6 @@ def eh_reforma_sao_januario(titulo):
     ]
     tem_reforma = any(p in t for p in palavras_reforma)
     if not tem_reforma:
-        return False
-
-    # 3. Evita falsos positivos de pré-jogo, escalação ou transmissão esportiva
-    termos_ignorar = [
-        "escalação", "escalacao", "onde assistir", "transmissão", 
-        "transmissao", "palpites", "arbitragem", "árbitro", "ingressos"
-    ]
-    if any(i in t for i in termos_ignorar) and not any(p in t for p in ["reforma", "obras", "potencial construtivo"]):
         return False
 
     return True
@@ -105,109 +136,115 @@ def resolver_link_direto(url):
         print(f"Aviso ao decodificar link do Google News: {e}")
     return url
 
-# 1. Carrega notícias existentes e expurga itens que venham a infringir os bloqueios
-noticias_atuais = []
-if os.path.exists(ARQUIVO_JSON):
-    try:
-        with open(ARQUIVO_JSON, "r", encoding="utf-8") as f:
-            dados = json.load(f)
-            if isinstance(dados, list):
-                noticias_atuais = [
-                    n for n in dados
-                    if isinstance(n, dict) 
-                    and not eh_proibido(n.get("veiculo", ""), n.get("titulo", ""), n.get("link", ""))
-                    and eh_reforma_sao_januario(n.get("titulo", ""))
-                ]
-    except Exception as e:
-        print(f"Aviso ao ler JSON existente: {e}")
+def atualizar():
+    # 1. Carrega notícias existentes e expurga itens que venham a infringir os bloqueios
+    noticias_atuais = []
+    if os.path.exists(ARQUIVO_JSON):
+        try:
+            with open(ARQUIVO_JSON, "r", encoding="utf-8") as f:
+                dados = json.load(f)
+                if isinstance(dados, list):
+                    noticias_atuais = [
+                        n for n in dados
+                        if isinstance(n, dict) 
+                        and not eh_proibido(n.get("veiculo", ""), n.get("titulo", ""), n.get("link", ""))
+                        and eh_reforma_sao_januario(n.get("titulo", ""))
+                    ]
+        except Exception as e:
+            print(f"Aviso ao ler JSON existente: {e}")
 
-# 1.1 Decodifica retroativamente notícias existentes que ainda possuem link do Google News
-legados = [n for n in noticias_atuais if "news.google.com" in n.get("link", "")]
-if legados:
-    print(f"Decoder: {len(legados)} notícia(s) existente(s) com link do Google News encontrada(s). Decodificando...")
-    convertidos = 0
-    for idx, item in enumerate(legados, 1):
-        link_orig = item.get("link", "")
-        link_dir = resolver_link_direto(link_orig)
-        if link_dir and link_dir != link_orig:
-            item["link"] = link_dir
-            convertidos += 1
-        if idx % 10 == 0 or idx == len(legados):
-            print(f"Progresso decoder: {idx}/{len(legados)} processados ({convertidos} convertidos)...")
-        time.sleep(0.2)
-    print(f"Decoder: Retroatividade concluída. Total de {convertidos} links convertidos para URLs diretas.")
+    # 1.1 Decodifica retroativamente notícias existentes que ainda possuem link do Google News
+    legados = [n for n in noticias_atuais if "news.google.com" in n.get("link", "")]
+    if legados:
+        print(f"Decoder: {len(legados)} notícia(s) existente(s) com link do Google News encontrada(s). Decodificando...")
+        convertidos = 0
+        for idx, item in enumerate(legados, 1):
+            link_orig = item.get("link", "")
+            link_dir = resolver_link_direto(link_orig)
+            if link_dir and link_dir != link_orig:
+                item["link"] = link_dir
+                convertidos += 1
+            if idx % 10 == 0 or idx == len(legados):
+                print(f"Progresso decoder: {idx}/{len(legados)} processados ({convertidos} convertidos)...")
+            time.sleep(0.2)
+        print(f"Decoder: Retroatividade concluída. Total de {convertidos} links convertidos para URLs diretas.")
 
-titulos_salvos = {item.get("titulo", "").strip().lower() for item in noticias_atuais}
-links_salvos = {item.get("link", "").strip() for item in noticias_atuais}
+    titulos_salvos = {item.get("titulo", "").strip().lower() for item in noticias_atuais}
+    links_salvos = {item.get("link", "").strip() for item in noticias_atuais}
 
-novas = []
+    novas = []
 
-# 2. Executa as buscas no Google News RSS
-for termo in TERMOS_BUSCA:
-    url_rss = f"https://news.google.com/rss/search?q={urllib.parse.quote(termo)}&hl=pt-BR&gl=BR&ceid=BR:pt-419"
-    try:
-        resp = requests.get(url_rss, headers=HEADERS, timeout=15)
-        feed = feedparser.parse(resp.content)
-    except Exception as req_err:
-        print(f"Falha na requisição com requests ({req_err}). Tentando feedparser direto...")
-        feed = feedparser.parse(url_rss)
+    # 2. Executa as buscas no Google News RSS
+    for termo in TERMOS_BUSCA:
+        url_rss = f"https://news.google.com/rss/search?q={urllib.parse.quote(termo)}&hl=pt-BR&gl=BR&ceid=BR:pt-419"
+        try:
+            resp = requests.get(url_rss, headers=HEADERS, timeout=15)
+            feed = feedparser.parse(resp.content)
+        except Exception as req_err:
+            print(f"Falha na requisição com requests ({req_err}). Tentando feedparser direto...")
+            feed = feedparser.parse(url_rss)
 
-    for entry in getattr(feed, "entries", []):
-        titulo_bruto = getattr(entry, "title", "").strip()
-        link = getattr(entry, "link", "").strip()
+        for entry in getattr(feed, "entries", []):
+            titulo_bruto = getattr(entry, "title", "").strip()
+            link = getattr(entry, "link", "").strip()
 
-        if not titulo_bruto or not link:
-            continue
+            if not titulo_bruto or not link:
+                continue
 
-        # Separa título e veículo de imprensa
-        if " - " in titulo_bruto:
-            partes = titulo_bruto.rsplit(" - ", 1)
-            titulo = partes[0].strip()
-            veiculo = partes[1].strip()
-        else:
-            titulo = titulo_bruto
-            veiculo = getattr(entry, "source", {}).get("title", "Imprensa")
+            # Separa título e veículo de imprensa
+            if " - " in titulo_bruto:
+                partes = titulo_bruto.rsplit(" - ", 1)
+                titulo = partes[0].strip()
+                veiculo = partes[1].strip()
+            else:
+                titulo = titulo_bruto
+                veiculo = getattr(entry, "source", {}).get("title", "Imprensa")
 
-        # Filtro de veículos e agregadores banidos
-        if eh_proibido(veiculo, titulo, link):
-            continue
+            # Filtro de veículos e agregadores banidos
+            if eh_proibido(veiculo, titulo, link):
+                continue
 
-        # Filtro de pertinência temática
-        if not eh_reforma_sao_januario(titulo):
-            continue
+            descricao = getattr(entry, "summary", "") or getattr(entry, "description", "")
 
-        # Extrai data da publicação convertida para horário de Brasília (UTC-3)
-        if hasattr(entry, "published_parsed") and entry.published_parsed:
-            try:
-                dt_utc = datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
-                dt_bsb = dt_utc.astimezone(timezone(timedelta(hours=-3)))
-                data_str = dt_bsb.strftime("%d/%m/%Y")
-            except Exception:
+            # Filtro de pertinência temática
+            if not eh_reforma_sao_januario(titulo, descricao):
+                continue
+
+            # Extrai data da publicação convertida para horário de Brasília (UTC-3)
+            if hasattr(entry, "published_parsed") and entry.published_parsed:
+                try:
+                    dt_utc = datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
+                    dt_bsb = dt_utc.astimezone(timezone(timedelta(hours=-3)))
+                    data_str = dt_bsb.strftime("%d/%m/%Y")
+                except Exception:
+                    data_str = datetime.now(timezone(timedelta(hours=-3))).strftime("%d/%m/%Y")
+            else:
                 data_str = datetime.now(timezone(timedelta(hours=-3))).strftime("%d/%m/%Y")
-        else:
-            data_str = datetime.now(timezone(timedelta(hours=-3))).strftime("%d/%m/%Y")
 
-        titulo_chave = titulo.strip().lower()
-        if titulo_chave not in titulos_salvos and link not in links_salvos:
-            link_final = resolver_link_direto(link)
-            novas.append({
-                "data": data_str,
-                "veiculo": veiculo,
-                "titulo": titulo,
-                "link": link_final
-            })
-            titulos_salvos.add(titulo_chave)
-            links_salvos.add(link)
-            links_salvos.add(link_final)
+            titulo_chave = titulo.strip().lower()
+            if titulo_chave not in titulos_salvos and link not in links_salvos:
+                link_final = resolver_link_direto(link)
+                novas.append({
+                    "data": data_str,
+                    "veiculo": veiculo,
+                    "titulo": titulo,
+                    "link": link_final
+                })
+                titulos_salvos.add(titulo_chave)
+                links_salvos.add(link)
+                links_salvos.add(link_final)
 
-# 3. Consolidação e ordenação cronológica decrescente (mais recente para a mais antiga)
-total_noticias = novas + noticias_atuais
-total_noticias.sort(key=lambda n: parse_data(n.get("data", "")), reverse=True)
+    # 3. Consolidação e ordenação cronológica decrescente (mais recente para a mais antiga)
+    total_noticias = novas + noticias_atuais
+    total_noticias.sort(key=lambda n: parse_data(n.get("data", "")), reverse=True)
 
-# 4. Trava de segurança: só substitui se houver notícias para evitar esvaziamento acidental
-if total_noticias:
-    with open(ARQUIVO_JSON, "w", encoding="utf-8") as f:
-        json.dump(total_noticias, f, ensure_ascii=False, indent=2)
-    print(f"Sucesso: {len(novas)} novas notícias adicionadas. Total no arquivo: {len(total_noticias)}")
-else:
-    print("Nenhuma notícia encontrada. Arquivo preservado.")
+    # 4. Trava de segurança: só substitui se houver notícias para evitar esvaziamento acidental
+    if total_noticias:
+        with open(ARQUIVO_JSON, "w", encoding="utf-8") as f:
+            json.dump(total_noticias, f, ensure_ascii=False, indent=2)
+        print(f"Sucesso: {len(novas)} novas notícias adicionadas. Total no arquivo: {len(total_noticias)}")
+    else:
+        print("Nenhuma notícia encontrada. Arquivo preservado.")
+
+if __name__ == "__main__":
+    atualizar()
