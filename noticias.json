@@ -1,15 +1,15 @@
 [
   {
+    "data": "22/10/2026",
+    "veiculo": "RioPress",
+    "titulo": "Vasco firma contrato de aluguel do Nilton Santos para jogo contra o Flamengo devido a obras em São Januário",
+    "link": "https://riopress.com.br/vasco-firma-contrato-de-aluguel-do-nilton-santos-para-jogo-contra-o-flamengo-devido-a-obras-em-sao-januario/"
+  },
+  {
     "data": "25/07/2026",
     "veiculo": "ge",
     "titulo": "Vasco realiza mudança interna, e presidente da Assembleia Geral assume reforma de São Januário",
     "link": "https://ge.globo.com/futebol/times/vasco/noticia/2026/07/25/vasco-realiza-mudanca-interna-e-presidente-da-assembleia-geral-assume-reforma-de-sao-januario.ghtml"
-  },
-  {
-    "data": "15/05/2026",
-    "veiculo": "Papo na Colina",
-    "titulo": "Vasco enfrenta entraves na venda de potencial construtivo de São Januário",
-    "link": "https://paponacolina.com.br/vasco-entraves-venda-de-potencial-construtivo/"
   },
   {
     "data": "15/05/2026",
@@ -108,6 +108,12 @@
     "link": "https://siila.com.br/noticias/venda-potencial-reforma-sao-januario-500-mi-rio/8130"
   },
   {
+    "data": "27/01/2026",
+    "veiculo": "Papo na Colina",
+    "titulo": "Adeus histórico? Vasco estuda adiar obras para fazer despedida de São Januário no centenário",
+    "link": "https://paponacolina.com.br/vasco-reforma-sao-januario-centenario-entenda/"
+  },
+  {
     "data": "13/01/2026",
     "veiculo": "LANCE!",
     "titulo": "Venda do potencial construtivo atrasa planos do Vasco para início das obras de São Januário",
@@ -124,12 +130,6 @@
     "veiculo": "NSC Total",
     "titulo": "O que falta para o Vasco iniciar a demolição e reforma do estádio São Januário",
     "link": "https://www.nsctotal.com.br/esportes/o-que-falta-para-o-vasco-iniciar-a-demolicao-e-reforma-do-estadio-sao-januario"
-  },
-  {
-    "data": "09/01/2026",
-    "veiculo": "Papo na Colina",
-    "titulo": "Reforma de São Januário: venda do potencial construtivo adia início das obras",
-    "link": "https://paponacolina.com.br/reforma-de-sao-januario-venda-do-potencial/"
   },
   {
     "data": "09/01/2026",
@@ -160,12 +160,6 @@
     "veiculo": "sportingnews.com",
     "titulo": "Vasco x Mirassol é o último jogo em São Januário antes de fechamento para reforma?",
     "link": "https://www.sportingnews.com/br/futebol/noticias/vasco-mirassol-ultimo-jogo-sao-januario-antes-fechamento-reforma/db8361e7645859144e9d0603"
-  },
-  {
-    "data": "27/11/2025",
-    "veiculo": "Vasco Notícias",
-    "titulo": "Reforma de São Januário: saiba data de início, capacidade e custo",
-    "link": "https://vasconoticias.com.br/noticias/reforma-de-sao-januario-saiba-data-de-inicio-capacidade-e-custo/"
   },
   {
     "data": "27/11/2025",
@@ -202,12 +196,6 @@
     "veiculo": "ge",
     "titulo": "Conselho da reforma de São Januário debate possibilidade de esticar linha do VLT até o estádio do Vasco",
     "link": "https://ge.globo.com/futebol/times/vasco/noticia/2025/11/25/conselho-da-reforma-de-sao-januario-debate-possibilidade-de-esticar-linha-do-vlt-ate-o-estadio-do-vasco.ghtml"
-  },
-  {
-    "data": "20/11/2025",
-    "veiculo": "Vasco Notícias",
-    "titulo": "Novo São Januário tem capacidade prevista revelada; veja",
-    "link": "https://vasconoticias.com.br/noticias/novo-sao-januario-tem-capacidade-prevista-revelada-veja/"
   },
   {
     "data": "19/11/2025",
@@ -990,12 +978,6 @@
     "link": "https://www.correiodamanha.com.br/esporte/2023/12/107672-reforma-de-sao-januario-sera-votada-so-em-2024.html"
   },
   {
-    "data": "21/11/2023",
-    "veiculo": "Vasco Notícias",
-    "titulo": "Novo São Januário: veja imagens inéditas do projeto",
-    "link": "https://vasconoticias.com.br/web-stories/novo-sao-januario-veja-imagens-ineditas-do-projeto/"
-  },
-  {
     "data": "18/11/2023",
     "veiculo": "Consultor Jurídico",
     "titulo": "Passo importante para a reforma de São Januário",
@@ -1234,12 +1216,6 @@
     "veiculo": "ge",
     "titulo": "Vasco busca acordo com a Prefeitura e visa reforma de São Januário; veja fotos do projeto",
     "link": "https://ge.globo.com/futebol/times/vasco/noticia/2022/08/02/vasco-busca-acordo-com-a-prefeitura-e-visa-reforma-de-sao-januario-veja-fotos-do-projeto.ghtml"
-  },
-  {
-    "data": "02/08/2022",
-    "veiculo": "Vasco Notícias",
-    "titulo": "Osório afirma que ‘novo São Januário’ manterá ligação com a Barreira do Vasco",
-    "link": "https://vasconoticias.com.br/noticias/osorio-afirma-que-novo-sao-januario-mantera-ligacao-com-a-barreira-do-vasco/"
   },
   {
     "data": "23/06/2022",
