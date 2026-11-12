@@ -121,6 +121,12 @@
   },
   {
     "data": "09/01/2026",
+    "veiculo": "Papo na Colina",
+    "titulo": "Reforma de São Januário: venda do potencial construtivo adia início das obras",
+    "link": "https://paponacolina.com.br/reforma-de-sao-januario-venda-do-potencial/"
+  },
+  {
+    "data": "09/01/2026",
     "veiculo": "LANCE!",
     "titulo": "ALAN SALDIVIA E NOVIDADES SOBRE A REFORMA DE SÃO JANUÁRIO | MINUTO DO VASCO",
     "link": "https://www.lance.com.br/videos/alan-saldivia-e-novidades-sobre-a-reforma-de-sao-januario-minuto-do-vasco"
@@ -829,6 +835,12 @@
   },
   {
     "data": "06/06/2024",
+    "veiculo": "O GLOBO",
+    "titulo": "Vasco: Em primeira discussão, Câmara aprova projeto do potencial construtivo, que viabilizará a reforma de São Januário",
+    "link": "https://oglobo.globo.com/esportes/futebol/vasco/noticia/2024/06/06/vasco-em-primeira-discussao-camara-aprova-projeto-do-potencial-construtivo-que-viabilizara-a-reforma-de-sao-januario.ghtml"
+  },
+  {
+    "data": "06/06/2024",
     "veiculo": "CNN Brasil",
     "titulo": "Reforma de São Januário: projeto de lei é aprovado em 1ª discussão na Câmara do Rio",
     "link": "https://www.cnnbrasil.com.br/esportes/futebol/vasco-da-gama/reforma-de-sao-januario-projeto-de-lei-e-aprovado-em-1a-discussao-na-camara-do-rio/"
@@ -1312,6 +1324,12 @@
     "veiculo": "LANCE!",
     "titulo": "Vasco apresenta o projeto para 'Novo São Januário' por R$208 milhões",
     "link": "https://www.lance.com.br/vasco/apresenta-projeto-para-novo-sao-januario-por-208-milhoes.html"
+  },
+  {
+    "data": "18/12/2018",
+    "veiculo": "ge",
+    "titulo": "Vasco apresenta projeto para reforma de São Januário e prevê investimento de R$ 208 milhões",
+    "link": "https://ge.globo.com/futebol/times/vasco/noticia/vasco-apresenta-projeto-para-reforma-de-sao-januario-e-preve-gasto-de-r-208-milhoes.ghtml"
   },
   {
     "data": "25/08/2017",
