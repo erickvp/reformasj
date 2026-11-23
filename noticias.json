@@ -811,6 +811,12 @@
   },
   {
     "data": "18/06/2024",
+    "veiculo": "UOL",
+    "titulo": "Vasco: Projeto para a reforma de São Januário é aprovado na Câmara do Rio",
+    "link": "https://www.uol.com.br/esporte/futebol/ultimas-noticias/2024/06/18/vasco-projeto-de-reforma-de-sao-januario-e-aprovado-na-camara.htm"
+  },
+  {
+    "data": "18/06/2024",
     "veiculo": "ge",
     "titulo": "Reforma de São Januário: PL do potencial construtivo do estádio do Vasco é aprovado na Câmara",
     "link": "https://ge.globo.com/futebol/times/vasco/noticia/2024/06/18/reforma-de-sao-januario-pl-do-potencial-construtivo-do-estadio-do-vasco-e-aprovado-na-camara.ghtml"
@@ -958,6 +964,12 @@
     "veiculo": "ge",
     "titulo": "Reforma de São Januário: vereadores e representantes do Vasco se reunirão na terça; veja próximos passos",
     "link": "https://ge.globo.com/futebol/times/vasco/noticia/2024/03/12/reforma-de-sao-januario-vereadores-e-representantes-do-vasco-se-reunirao-na-terca-veja-proximos-passos.ghtml"
+  },
+  {
+    "data": "06/03/2024",
+    "veiculo": "ge",
+    "titulo": "Eduardo Paes garante que PL de reforma de São Januário, estádio do Vasco, será deliberado em 30 a 45 dias",
+    "link": "https://ge.globo.com/futebol/times/vasco/noticia/2024/03/06/eduardo-paes-garante-que-pl-de-reforma-de-sao-januario-estadio-do-vasco-sera-votado-em-30-a-45-dias.ghtml"
   },
   {
     "data": "06/03/2024",
